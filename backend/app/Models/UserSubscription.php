@@ -10,6 +10,7 @@ class UserSubscription extends Model
     use \Backpack\CRUD\app\Models\Traits\CrudTrait;
     use HasFactory;
 
+    protected $table='user_subscriptions';
 
     public function user(){
         return $this->belongsTo(User::class);

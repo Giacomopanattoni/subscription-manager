@@ -17,7 +17,6 @@ class SubscriptionController extends Controller
             'every_item' => 'required|string|in:day,month,year',
             'from' => 'required|date',
         ]);
-
         $subscription = new UserSubscription();
         $subscription->name = $request->post('name');
         $subscription->user_id = $request->user()->id;
@@ -32,6 +31,13 @@ class SubscriptionController extends Controller
 
     public function list(Request $request){
         return $this->jsonResponse(true,$request->user()->userSubscriptions()->get());
+    }
+
+    public function delete(UserSubscription $subscription){
+
+        if($subscription->delete()){
+            return $this->jsonResponse(true,'Abbonamento eliminato con successo');
+        }
     }
 
     public function jsonResponse($success, $data){

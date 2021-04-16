@@ -1,7 +1,6 @@
 <?php
 
 use App\Http\Controllers\SubscriptionController;
-use App\Models\UserSubscription;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -22,10 +21,8 @@ Route::middleware('auth:api')->group(function () {
         return $request->user();
     });
     Route::get('user-subscriptions', [SubscriptionController::class,'list']);
-    Route::post('user-subscriptions/{subscription}', function (UserSubscription $subscription) {
-        return $subscription;
-    });
     Route::post('user-subscriptions/create', [SubscriptionController::class,'create']);
+   
 
 
 
