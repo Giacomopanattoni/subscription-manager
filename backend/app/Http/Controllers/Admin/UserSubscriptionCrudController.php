@@ -47,8 +47,7 @@ class UserSubscriptionCrudController extends CrudController
         CRUD::column('every_count');
         CRUD::column('every_item');
         CRUD::column('from');
-        CRUD::column('created_at');
-        CRUD::column('updated_at');
+        CRUD::column('notify');
 
         /**
          * Columns can be defined using the fluent syntax or array syntax:
@@ -73,10 +72,22 @@ class UserSubscriptionCrudController extends CrudController
         CRUD::field('price');
         CRUD::field('renewal_day');
         CRUD::field('every_count');
-        CRUD::field('every_item');
-        CRUD::field('from');
-        CRUD::field('created_at');
-        CRUD::field('updated_at');
+        CRUD::addField([
+            'name'        => 'every_item', 
+            'label'       => 'recurring', 
+            'type'        => 'radio',
+            'options'     => [ 
+                'day' => "Day",
+                'month' => "Month",
+                'year' => "Year"
+            ],
+        ]);
+        CRUD::addField([
+            'name'  => 'from',
+            'label' => 'Subscription init',
+            'type'  => 'date'
+        ]);
+        CRUD::field('notify');
 
         /**
          * Fields can be defined using the fluent syntax or array syntax:

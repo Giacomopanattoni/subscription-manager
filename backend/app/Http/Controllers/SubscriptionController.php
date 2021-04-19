@@ -16,6 +16,7 @@ class SubscriptionController extends Controller
             'every_count' => 'required|numeric',
             'every_item' => 'required|string|in:day,month,year',
             'from' => 'required|date',
+            'notify' => 'required|bool',
         ]);
         $subscription = new UserSubscription();
         $subscription->name = $request->post('name');
@@ -25,6 +26,7 @@ class SubscriptionController extends Controller
         $subscription->every_count = $request->post('every_count');
         $subscription->every_item = $request->post('every_item');
         $subscription->from = $request->post('from');
+        $subscription->notify = $request->post('notify');
         $subscription->save();
         return $this->jsonResponse(true,$subscription);
     }

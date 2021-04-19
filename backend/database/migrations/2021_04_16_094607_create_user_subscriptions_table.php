@@ -22,6 +22,7 @@ class CreateUserSubscriptionsTable extends Migration
             $table->integer('every_count');
             $table->enum('every_item', array('day', 'month','year'));
             $table->string('from');
+            $table->boolean('notify')->default(false);
             $table->timestamps();
         });
     }
