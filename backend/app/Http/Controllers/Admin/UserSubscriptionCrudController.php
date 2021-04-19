@@ -39,14 +39,11 @@ class UserSubscriptionCrudController extends CrudController
      */
     protected function setupListOperation()
     {
-        CRUD::column('id');
         CRUD::column('user_id');
         CRUD::column('name');
         CRUD::column('price');
-        CRUD::column('renewal_day');
         CRUD::column('every_count');
         CRUD::column('every_item');
-        CRUD::column('from');
         CRUD::column('notify');
 
         /**
@@ -66,7 +63,6 @@ class UserSubscriptionCrudController extends CrudController
     {
         CRUD::setValidation(UserSubscriptionRequest::class);
 
-        CRUD::field('id');
         CRUD::field('user_id');
         CRUD::field('name');
         CRUD::field('price');

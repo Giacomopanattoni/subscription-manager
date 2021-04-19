@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\SubscriptionController;
+use App\Models\Currency;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -16,6 +17,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 Route::post('auth/register', [AuthController::class,'create']);
+Route::get('currencies', function(Request $request){
+    return Currency::all();
+});
 Route::middleware('auth:api')->group(function () {
 
     Route::get('user', function (Request $request) {
