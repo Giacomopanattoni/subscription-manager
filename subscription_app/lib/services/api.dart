@@ -2,11 +2,11 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 class Api {
-  Api({this.path, this.token});
-
   final String path;
   final String token;
   final String _baseUrl = "127.0.0.1:8000";
+
+  Api({this.path, this.token});
 
   Future<dynamic> get() async {
     try {
