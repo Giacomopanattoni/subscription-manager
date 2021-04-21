@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'language.dart';
+import 'languages.dart';
 
 class AppSettings extends ChangeNotifier {
   Map<String, String> _translatedStrings;
