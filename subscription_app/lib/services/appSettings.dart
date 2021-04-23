@@ -17,7 +17,7 @@ class AppSettings extends ChangeNotifier {
 
   void changeLanguage() {
     _translatedStrings = Language.load(langCode);
-    print(_translatedStrings);
+
     notifyListeners();
   }
 
