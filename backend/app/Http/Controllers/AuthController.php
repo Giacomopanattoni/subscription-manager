@@ -37,9 +37,12 @@ class AuthController extends Controller
         'email' => $data['email'],
         'password' => Hash::make($data['password']),
     ]);
-    return $user;
+    return response()->json([
+        'status' => "success",
+        'data' => $user
+    ],200);
     $client = Client::where('password_client', 1)->first();
-
+/* 
     $request->request->add([
         'grant_type'    => 'password',
         'client_id'     => $client->id,
@@ -54,6 +57,6 @@ class AuthController extends Controller
         'POST'
     );
 
-    return Route::dispatch($token);
+    return Route::dispatch($token); */
 }
 }
