@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:subscription_app/services/appSettings.dart';
-import 'package:subscription_app/services/language.dart';
+import 'package:subscription_app/services/languages.dart';
 
 class LoginScreen extends StatelessWidget {
   static const String id = 'login_screen';

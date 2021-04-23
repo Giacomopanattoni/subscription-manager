@@ -4,7 +4,7 @@ import 'dart:convert';
 class Api {
   final String path;
   final String token;
-  final String _baseUrl = "127.0.0.1:8000";
+  final String _baseUrl = "10.0.2.2";
 
   Api({this.path, this.token});
 
