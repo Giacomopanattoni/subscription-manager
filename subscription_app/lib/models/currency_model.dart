@@ -27,7 +27,7 @@ class Currency {
   Currency.fromJson(dynamic json) {
     _id = json["id"];
     _ticker = json["ticker"];
-    _value = json["value"];
+    _value = json["value"].toDouble();
     _createdAt = json["created_at"];
     _updatedAt = json["updated_at"];
   }
