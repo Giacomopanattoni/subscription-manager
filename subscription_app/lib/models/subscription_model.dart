@@ -1,5 +1,5 @@
-
 import 'data_model.dart';
+
 class Subscription {
   String _status;
   Data _data;
@@ -7,12 +7,14 @@ class Subscription {
   String get status => _status;
   Data get data => _data;
 
-  Subscription({
-      String status, 
-      Data data}){
+  set data(Data newData) {
+    this._data = newData;
+  }
+
+  Subscription({String status, Data data}) {
     _status = status;
     _data = data;
-}
+  }
 
   Subscription.fromJson(dynamic json) {
     _status = json["status"];
@@ -27,6 +29,4 @@ class Subscription {
     }
     return map;
   }
-
 }
-

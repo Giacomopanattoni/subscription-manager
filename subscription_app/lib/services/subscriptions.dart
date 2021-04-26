@@ -4,11 +4,11 @@ import 'dart:convert';
 
 class Subscriptions {
   Api api = Api();
-
-  Future<dynamic> createSubscription(Subscription newSub) async {
+//TODO ADD ERROR HANDLING
+  Future<dynamic> createSubscription(dynamic newSub) async {
     api.myPath = '/api/user-subscriptions/create';
-    dynamic response = await api.post(jsonEncode(newSub.toJson()));
-
+    dynamic response = await api.post(newSub);
+    print(response);
     return response;
   }
 

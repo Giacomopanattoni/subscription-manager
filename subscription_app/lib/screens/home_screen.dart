@@ -1,10 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:subscription_app/screens/login_screen.dart';
 import 'package:subscription_app/services/appSettings.dart';
 import 'package:subscription_app/services/authentication.dart';
 import 'package:subscription_app/services/currencies.dart';
-import 'package:subscription_app/services/languages.dart';
 import 'package:provider/provider.dart';
 import 'package:subscription_app/services/subscriptions.dart';
 
@@ -29,42 +27,57 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
             TextButton(
-              onPressed: () {
-                Subscriptions().getSubscription();
+              onPressed: () async {
+                await Subscriptions().getSubscription();
               },
               child: Text('Get Subs'),
             ),
             TextButton(
-              onPressed: () {
+              onPressed: () async {
                 dynamic params = {
                   'username': 'kevinmateo-rodriguez@hotmail.com',
-                  'password': 'admin',
-                  'client_id': '1',
-                  'client_secret': 'qzSLIHEpwzYpYsV8GHgZKDtLttultFDvIyk6DGEw',
-                  'grant_type': 'password',
+                  'password': '123456',
+                  'client_id': '3',
+                  'client_secret': 'ha6ev4v0ZDityQfyDRl0mlTLzT4kSwyPeKXP8Z4N',
+                  'grant_type': 'password'
                 };
-                Authentication().login(params);
+                await Authentication().login(params);
               },
               child: Text('Login'),
             ),
             TextButton(
               onPressed: () async {
-                Currencies().getCurrencies();
+                await Currencies().getCurrencies();
               },
               child: Text('Get Currencies '),
             ),
             TextButton(
               onPressed: () async {
                 dynamic params = {
-                  'name': 'Gino',
+                  'name': 'Kevin',
                   'password': '123456',
-                  'email': 'gino2@live.it',
+                  'email': 'kevinmateo-rodriguez@hotmail.com',
                 };
 
-                Authentication().register(params);
+                await Authentication().register(params);
               },
               child: Text('Register'),
-            )
+            ),
+            TextButton(
+              onPressed: () async {
+                dynamic newSub = {
+                  'name': 'Camper&Motori',
+                  'price': '666',
+                  'renewal_day': '15',
+                  'every_count': '1',
+                  'every_item': 'month',
+                  'from': '10-03-2021',
+                  'notify': '1'
+                };
+                await Subscriptions().createSubscription(newSub);
+              },
+              child: Text('Create a Sub'),
+            ),
           ],
         ),
       ),
