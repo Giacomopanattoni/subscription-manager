@@ -25,10 +25,12 @@ Route::middleware('auth:api')->group(function () {
     Route::get('user', function (Request $request) {
         return $request->user();
     });
-   
+
     Route::get('user-subscriptions', [SubscriptionController::class,'list']);
     Route::post('user-subscriptions/create', [SubscriptionController::class,'create']);
-   
+    Route::post('user-subscriptions/{subscription}', [SubscriptionController::class,'edit']);
+
+
 
 
 
