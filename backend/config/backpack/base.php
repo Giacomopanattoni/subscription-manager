@@ -90,7 +90,7 @@ return [
     'developer_link' => 'http://tabacitu.ro',
 
     // Show powered by Laravel Backpack in the footer? true/false
-    'show_powered_by' => true,
+    'show_powered_by' => false,
 
     // -------
     // SCRIPTS
@@ -142,7 +142,7 @@ return [
     | By default the registration is open only on localhost.
     */
 
-    'registration_open' => env('BACKPACK_REGISTRATION_OPEN', env('APP_ENV') === 'local'),
+    'registration_open' =>false,
 
     /*
     |--------------------------------------------------------------------------
