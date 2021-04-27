@@ -6,22 +6,26 @@ import 'package:subscription_app/services/api.dart';
 class Authentication {
   Api api = Api();
 //TODO ADD ERROR HANDLING
-  Future<dynamic> register(dynamic params) async {
+  Future<bool> register(dynamic params) async {
     api.myPath = '/api/auth/register';
     dynamic data = await api.post(params);
-    dynamic dataDecode = jsonDecode(data);
-    print(dataDecode);
-/*    myPref(dataDecode);*/ //TODO after register go to login page
-    return data ?? null;
+    if (data != null) {
+      dynamic dataDecode = jsonDecode(data);
+      print(dataDecode);
+      return true; //TODO after register go to login page
+    }
+    return false;
   }
 
-  Future<dynamic> login(dynamic params) async {
+  Future<bool> login(dynamic params) async {
     api.myPath = '/api/auth/token';
     dynamic data = await api.post(params);
-    dynamic dataDecode = jsonDecode(data);
-    print(dataDecode);
-    myPref(dataDecode);
-    return data ?? null;
+    if (data != null) {
+      dynamic dataDecode = jsonDecode(data);
+      myPref(dataDecode);
+      return true;
+    }
+    return false;
   }
 
   void myPref(dynamic authData) async {

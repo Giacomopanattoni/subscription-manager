@@ -5,21 +5,24 @@ import 'dart:convert';
 class Subscriptions {
   Api api = Api();
 //TODO ADD ERROR HANDLING
-  Future<dynamic> createSubscription(dynamic newSub) async {
+  Future<bool> createSubscription(dynamic newSub) async {
     api.myPath = '/api/user-subscriptions/create';
     dynamic response = await api.post(newSub);
-    print(response);
-    return response;
+    if (response != null) return true;
+    return false;
   }
 
-  Future<dynamic> getSubscription() async {
+  Future<List<Subscription>> getSubscription() async {
     api.myPath = '/api/user-subscriptions';
     dynamic data = await api.get();
-    print(data);
-    dynamic items = jsonDecode(data);
-    List subscriptions = List<Subscription>.from(
-        items['data'].map((model) => Subscription.fromJson(model)));
+    if (data != null) {
+      print(data);
+      dynamic items = jsonDecode(data);
+      List subscriptions = List<Subscription>.from(
+          items['data'].map((model) => Subscription.fromJson(model)));
 
-    return subscriptions ?? null;
+      return subscriptions;
+    }
+    return null;
   }
 }
