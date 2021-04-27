@@ -16,9 +16,9 @@ class AdminMiddleware
      */
     public function handle($request, Closure $next)
     {
-        /* if (! $request->user()->hasRole('admin')) {
+        if (! $request->user()->hasRole('admin')) {
             abort(401);
-        } */
+        }
         return $next($request);
     }
 }
