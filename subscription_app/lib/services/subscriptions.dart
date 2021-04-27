@@ -25,4 +25,11 @@ class Subscriptions {
     }
     return null;
   }
+
+  Future<bool> editSubscription(dynamic params, String idSub) async {
+    api.myPath = '/api/user-subscriptions/$idSub';
+    dynamic response = await api.post(params);
+    if (response != null) return true;
+    return false;
+  }
 }
