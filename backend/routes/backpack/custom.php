@@ -16,4 +16,6 @@ Route::group([
 ], function () { // custom admin routes
     Route::crud('user', 'UserCrudController');
     Route::crud('usersubscription', 'UserSubscriptionCrudController');
+    Route::get('charts/users', 'Charts\UsersChartController@response')->name('charts.users.index');
+    Route::get('charts/monthly-users', 'Charts\MonthlyUsersChartController@response')->name('charts.monthly-users.index');
 }); // this should be the absolute last line of this file

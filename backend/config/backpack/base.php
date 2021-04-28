@@ -24,7 +24,7 @@ return [
     // ----
 
     // Project name. Shown in the window title.
-    'project_name' => 'Backpack Admin Panel',
+    'project_name' => 'Advanced Subscription Manager',
 
     // When clicking on the admin panel's top-left logo/name,
     // where should the user be redirected?
@@ -87,7 +87,7 @@ return [
     'developer_name' => 'Giacomo Panattoni',
 
     // Developer website. Link in footer. Type false if you want to hide it.
-    'developer_link' => 'http://tabacitu.ro',
+    'developer_link' => 'http://foolstack.it/',
 
     // Show powered by Laravel Backpack in the footer? true/false
     'show_powered_by' => false,
@@ -142,7 +142,7 @@ return [
     | By default the registration is open only on localhost.
     */
 
-    'registration_open' =>false,
+    'registration_open' => false,
 
     /*
     |--------------------------------------------------------------------------
