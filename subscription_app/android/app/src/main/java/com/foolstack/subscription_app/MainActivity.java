@@ -1,4 +1,4 @@
-package com.example.subscription_app;
+package com.foolstack.subscription_app;
 
 import io.flutter.embedding.android.FlutterActivity;
 

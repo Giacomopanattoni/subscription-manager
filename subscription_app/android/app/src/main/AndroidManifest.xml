@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.subscription_app">
+    package="com.foolstack.subscription_app">
     <application
         android:usesCleartextTraffic="true"
         android:label="subscription_app"
