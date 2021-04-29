@@ -7,6 +7,7 @@ use App\Models\User;
 use Coderello\SocialGrant\Resolvers\SocialUserResolverInterface;
 use Exception;
 use Illuminate\Contracts\Auth\Authenticatable;
+use Illuminate\Support\Facades\Log;
 use Laravel\Socialite\Facades\Socialite;
 
 class SocialUserResolver implements SocialUserResolverInterface
@@ -25,14 +26,18 @@ class SocialUserResolver implements SocialUserResolverInterface
         
         try {
             $providerUser = Socialite::driver($provider)->userFromToken($accessToken);
-        } catch (Exception $exception) {}
+        } catch (Exception $exception) {
+            Log::debug($exception);
+        }
         
         if ($providerUser) {
+            Log::debug($provider);
             $user = User::firstOrCreate(
                 ['email' => $providerUser->email],
                 [
                     'email_verified_at' => now(),
                     'name' => $providerUser->name,
+                    'provider' => $provider
                 ]
             );
             return $user;
