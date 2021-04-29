@@ -65,14 +65,20 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   void doRegister() async {
+
     String name = userNameRegisterController.text;
     String email = emailRegisterController.text;
     String password = passwordRegisterController.text;
-
+    String confirmPassword = confirmPasswordController.text;
+    bool confirmRegister = password == confirmPassword ? true : false;
+    if (!confirmRegister) {
+      print('non coincidono');
+      return;
+    } //TODO AlertDialog
     if (formKey.currentState.validate()) {
       dynamic params = {
         'name': name,
-        'username': email,
+        'email': email,
         'password': password,
       };
       final auth = Authentication();
@@ -91,6 +97,8 @@ class _LoginScreenState extends State<LoginScreen> {
     switchLogReg(true);
     super.initState();
   }
+
+
 
   @override
   Widget build(BuildContext context) {
