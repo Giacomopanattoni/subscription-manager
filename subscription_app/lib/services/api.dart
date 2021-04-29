@@ -3,21 +3,13 @@ import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Api {
-  String path;
+  final String _baseUrl = 'subscriptionmanager.foolstack.app';
 
-  final String _baseUrl = '162.55.47.190';
-
-  Api({this.path});
-
-  set myPath(String newPath) {
-    path = newPath;
-  }
-
-  Future<dynamic> get() async {
+  Future<dynamic> get({String path}) async {
     String token = await prefToken;
     try {
       final response = await http.get(
-        Uri.http(_baseUrl, path),
+        Uri.https(_baseUrl, path),
         headers: <String, String>{
           'Accept': 'application/json;',
           'Authorization': 'Bearer $token'
@@ -36,11 +28,11 @@ class Api {
     }
   }
 
-  Future<dynamic> post(dynamic body) async {
+  Future<dynamic> post({dynamic body,String path}) async {
     print(body);
     String token = await prefToken;
     try {
-      final response = await http.post(Uri.http(_baseUrl, path),
+      final response = await http.post(Uri.https(_baseUrl, path),
           headers: <String, String>{
             'Accept': 'application/json',
             'Authorization': 'Bearer $token'

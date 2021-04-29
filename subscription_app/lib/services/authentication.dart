@@ -11,8 +11,8 @@ class Authentication {
 
 //TODO ADD ERROR HANDLING
   Future<bool> register(dynamic params) async {
-    api.myPath = '/api/auth/register';
-    dynamic data = await api.post(params);
+    String myPath = '/api/auth/register';
+    dynamic data = await api.post(path: myPath, body: params);
     if (data != null) {
       dynamic dataDecode = jsonDecode(data);
       print(dataDecode);
@@ -22,8 +22,8 @@ class Authentication {
   }
 
   Future<bool> login(dynamic params) async {
-    api.myPath = '/api/auth/token';
-    dynamic data = await api.post(params);
+    String myPath = '/api/auth/token';
+    dynamic data = await api.post(path: myPath, body: params);
     if (data != null) {
       dynamic dataDecode = jsonDecode(data);
       myPref(dataDecode);

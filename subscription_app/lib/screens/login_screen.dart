@@ -21,6 +21,7 @@ class _LoginScreenState extends State<LoginScreen> {
   final passwordRegisterController = TextEditingController();
   final passwordLoginController = TextEditingController();
   final confirmPasswordController = TextEditingController();
+  final userNameRegisterController = TextEditingController();
   Color dividerLoginColor;
   Color dividerRegisterColor;
   bool isLogin;
@@ -54,11 +55,34 @@ class _LoginScreenState extends State<LoginScreen> {
       };
       final auth = Authentication();
       bool isLoginOk = await auth.login(params);
+      print('isLoginOk');
+      print(isLoginOk);
+
       if (isLoginOk) {
         Navigator.pushReplacementNamed(context, HomeScreen.id);
       }
-      print('isLoginOk');
-      print(isLoginOk);
+    }
+  }
+
+  void doRegister() async {
+    String name = userNameRegisterController.text;
+    String email = emailRegisterController.text;
+    String password = passwordRegisterController.text;
+
+    if (formKey.currentState.validate()) {
+      dynamic params = {
+        'name': name,
+        'username': email,
+        'password': password,
+      };
+      final auth = Authentication();
+      bool isRegOk = await auth.register(params);
+      print('isRegOk');
+      print(isRegOk);
+
+      if (isRegOk) {
+        switchLogReg(true);
+      }
     }
   }
 
@@ -91,6 +115,15 @@ class _LoginScreenState extends State<LoginScreen> {
     );
     final register = Column(
       children: <Widget>[
+        TextFormFieldCustom(
+          hintText: 'User Name',
+          icon: Icons.account_circle_outlined,
+          textController: userNameRegisterController,
+          obscureText: false,
+        ),
+        SizedBox(
+          height: 30,
+        ),
         TextFormFieldCustom(
           hintText: 'Email Address',
           icon: Icons.email_outlined,
@@ -127,7 +160,7 @@ class _LoginScreenState extends State<LoginScreen> {
         SizedBox(
           height: 10,
         ),
-        ElevatedButtonCustom(textButton: 'REGISTER', onPress: () {})
+        ElevatedButtonCustom(textButton: 'REGISTER', onPress: doRegister)
       ],
     );
     final loginButtons = Column(

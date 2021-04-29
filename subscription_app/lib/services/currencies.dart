@@ -6,8 +6,8 @@ class Currencies {
   Api api = Api();
 //TODO ADD ERROR HANDLING
   Future<dynamic> getCurrencies() async {
-    api.myPath = '/api/currencies';
-    dynamic data = await api.get();
+    String myPath = '/api/currencies';
+    dynamic data = await api.get(path: myPath);
     if (data != null) {
       dynamic items = jsonDecode(data);
       print(items);
