@@ -57,5 +57,12 @@ class Authentication {
     UserCredential user =
         await FirebaseAuth.instance.signInWithCredential(credential);
     print(googleAuth.accessToken);
+
+    // TODO
+    //va fatta la chiamata del token
+    //client_id
+    //client_secret
+    //grant_type = social
+    //access_token = googleAuth.accessToken
   }
 }
