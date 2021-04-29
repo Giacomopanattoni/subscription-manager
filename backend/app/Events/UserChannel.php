@@ -41,4 +41,9 @@ class UserChannel implements ShouldBroadcast
     {
         return ['message' => $this->message];
     }
+
+    public function broadcastAs()
+{
+    return 'user.channel';
+}
 }
