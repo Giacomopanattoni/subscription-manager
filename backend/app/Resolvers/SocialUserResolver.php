@@ -33,6 +33,7 @@ class SocialUserResolver implements SocialUserResolverInterface
                 [
                     'email_verified_at' => now(),
                     'name' => $providerUser->name,
+                    'provider' => $provider
                 ]
             );
             return $user;
