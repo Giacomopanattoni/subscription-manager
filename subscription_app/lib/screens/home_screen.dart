@@ -78,6 +78,12 @@ class _HomeScreenState extends State<HomeScreen> {
               },
               child: Text('Create a Sub'),
             ),
+            TextButton(
+              onPressed: () {
+                Authentication.signInWithGoogle();
+              },
+              child: Text('Google Login'),
+            )
           ],
         ),
       ),

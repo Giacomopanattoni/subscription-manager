@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "526212818388",
+    "project_id": "subscription-manager-312109",
+    "storage_bucket": "subscription-manager-312109.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:526212818388:android:99ffb2ea3d465d54696241",
+        "android_client_info": {
+          "package_name": "com.foolstack.subscription_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "526212818388-6nee2q98m5qgprf23mlfnnn58jkfj41j.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC6lAOmrvFBIZ8UYP32Ptv63vYknGwWyFU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "526212818388-6nee2q98m5qgprf23mlfnnn58jkfj41j.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

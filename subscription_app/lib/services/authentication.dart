@@ -1,10 +1,14 @@
 import 'dart:convert';
 
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:subscription_app/services/api.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class Authentication {
   Api api = Api();
+
 //TODO ADD ERROR HANDLING
   Future<bool> register(dynamic params) async {
     api.myPath = '/api/auth/register';
@@ -37,5 +41,21 @@ class Authentication {
     pref.setString('myToken', token);
     pref.setInt('expires', expires);
     pref.setString('refreshToken', refreshToken);
+  }
+
+  static Future<void> signInWithGoogle() async {
+    // Trigger the authentication flow
+    Firebase.initializeApp();
+
+    final GoogleSignInAccount googleUser = await GoogleSignIn().signIn();
+    final GoogleSignInAuthentication googleAuth =
+        await googleUser.authentication;
+    final credential = GoogleAuthProvider.credential(
+      accessToken: googleAuth.accessToken,
+      idToken: googleAuth.idToken,
+    );
+    UserCredential user =
+        await FirebaseAuth.instance.signInWithCredential(credential);
+    print(googleAuth.accessToken);
   }
 }

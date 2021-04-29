@@ -3,11 +3,32 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use Carbon\Carbon;
+use DateTimeImmutable;
+use Google_Client;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Route;
-use Laravel\Passport\Client;
+use Laravel\Socialite\Facades\Socialite;
+
+use DateTime;
+use Illuminate\Events\Dispatcher;
+use Laravel\Passport\Bridge\AccessToken;
+use Laravel\Passport\Bridge\AccessTokenRepository;
+use Laravel\Passport\Bridge\Client;
+use Laravel\Passport\Bridge\RefreshToken;
+use Laravel\Passport\Bridge\RefreshTokenRepository;
+use Laravel\Passport\Passport;
+use Laravel\Passport\Token;
+use Laravel\Passport\TokenRepository;
+use League\OAuth2\Server\CryptKey;
+use League\OAuth2\Server\Entities\AccessTokenEntityInterface;
+use League\OAuth2\Server\Exception\OAuthServerException;
+use League\OAuth2\Server\Exception\UniqueTokenIdentifierConstraintViolationException;
+use League\OAuth2\Server\ResponseTypes\BearerTokenResponse;
 
 class AuthController extends Controller
 {
@@ -44,5 +65,33 @@ class AuthController extends Controller
             'status' => "success",
             'data' => $user
         ], 200);
+    }
+
+    public function googleLogin()
+    {
+        $googleUser = Socialite::driver('google')->stateless()->userFromToken(request()->token);
+        
+        $user = User::firstOrCreate(
+            ['email' => $googleUser->email],
+            [
+                'email_verified_at' => now(),
+                'name' => $googleUser->name,
+            ]
+        );
+        return $user;
+        /* $token = $user->createToken('password');
+        
+        return [
+            'access_token' => $token,
+        ]; */
+        
+    }
+
+    private function getUserAndToken(User $user, $device_name)
+    {
+        return [
+            'User' => $user,
+            'Access-Token' => $user->createToken($device_name)->plainTextToken,
+        ];
     }
 }

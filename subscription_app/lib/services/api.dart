@@ -46,7 +46,7 @@ class Api {
             'Authorization': 'Bearer $token'
           },
           body: body);
-
+      print(response.body);
       if (response.statusCode == 200) {
         String data = response.body;
 
