@@ -5,7 +5,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 class Api {
   String path;
 
-  final String _baseUrl = "10.0.2.2";
+  final String _baseUrl = '162.55.47.190';
 
   Api({this.path});
 

@@ -1,8 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:subscription_app/services/authentication.dart';
+import 'package:subscription_app/widgets/elevatedButtonCutom.dart';
+import 'package:subscription_app/widgets/socialButtonCustom.dart';
 import 'package:subscription_app/widgets/textFormFieldCustom.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:subscription_app/constants/style.dart';
+import 'package:subscription_app/screens/home_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   static const String id = 'login_screen';
@@ -12,11 +15,14 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  final emailController = TextEditingController();
-  final passwordController = TextEditingController();
+  final formKey = GlobalKey<FormState>();
+  final emailLoginController = TextEditingController();
+  final emailRegisterController = TextEditingController();
+  final passwordRegisterController = TextEditingController();
+  final passwordLoginController = TextEditingController();
   final confirmPasswordController = TextEditingController();
-  double endIndentDivider;
-  double indentDivider;
+  Color dividerLoginColor;
+  Color dividerRegisterColor;
   bool isLogin;
   Color colorRegText;
   Color colorLogText;
@@ -24,11 +30,36 @@ class _LoginScreenState extends State<LoginScreen> {
   void switchLogReg(bool screenState) {
     setState(() {
       isLogin = screenState;
-      endIndentDivider = isLogin ? 170 : 0;
-      indentDivider = isLogin ? 0 : 170;
+      dividerLoginColor = isLogin ? kColorPrimary : Colors.transparent;
+      dividerRegisterColor = isLogin ? Colors.transparent : kColorPrimary;
       colorLogText = isLogin ? kColorPrimary : kTextColorDark;
       colorRegText = isLogin ? kTextColorDark : kColorPrimary;
     });
+  }
+
+  void doLogin() async {
+    String email = emailLoginController.text;
+    String password = passwordLoginController.text;
+    const _clientSecret = 'bVQwHIHugs8ZJl8PWVmd2taJ8297lQBW6ODrJIoF';
+    const _clientId = '3';
+    const _grantType = 'password';
+
+    if (formKey.currentState.validate()) {
+      dynamic params = {
+        'username': email,
+        'password': password,
+        'client_secret': _clientSecret,
+        'client_id': _clientId,
+        'grant_type': _grantType,
+      };
+      final auth = Authentication();
+      bool isLoginOk = await auth.login(params);
+      if (isLoginOk) {
+        Navigator.pushReplacementNamed(context, HomeScreen.id);
+      }
+      print('isLoginOk');
+      print(isLoginOk);
+    }
   }
 
   @override
@@ -44,7 +75,7 @@ class _LoginScreenState extends State<LoginScreen> {
         TextFormFieldCustom(
           hintText: 'Email Address',
           icon: Icons.email_outlined,
-          textController: emailController,
+          textController: emailLoginController,
           obscureText: false,
         ),
         SizedBox(
@@ -53,56 +84,8 @@ class _LoginScreenState extends State<LoginScreen> {
         TextFormFieldCustom(
           hintText: 'Password',
           icon: Icons.remove_red_eye_sharp,
-          textController: passwordController,
+          textController: passwordLoginController,
           obscureText: true,
-        ),
-        ElevatedButton(
-          onPressed: () {},
-          style: ElevatedButton.styleFrom(
-              primary: Colors.white,
-              padding: EdgeInsets.zero,
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(20))),
-          child: Container(
-            width: 350,
-            height: 45,
-            child: Row(
-              children: [
-                SvgPicture.asset(
-                  'images/googleicon.svg',
-                  width: 30,
-                  height: 30,
-                ),
-                Text(
-                  'LOGIN WITH GOOGLE',
-                  style: TextStyle(
-                    color: kTextColorLight,
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ),
-        ElevatedButton(
-          onPressed: () {},
-          style: ElevatedButton.styleFrom(
-              padding: EdgeInsets.zero,
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(20))),
-          child: Ink(
-            decoration: BoxDecoration(
-                gradient: LinearGradient(
-                    colors: [Color(0xff9b23ea), Color(0xff391792)]),
-                borderRadius: BorderRadius.circular(20)),
-            child: Container(
-              width: 350,
-              height: 45,
-              alignment: Alignment.center,
-              child: Text(
-                'LOGIN',
-              ),
-            ),
-          ),
         ),
       ],
     );
@@ -111,7 +94,7 @@ class _LoginScreenState extends State<LoginScreen> {
         TextFormFieldCustom(
           hintText: 'Email Address',
           icon: Icons.email_outlined,
-          textController: emailController,
+          textController: emailRegisterController,
           obscureText: false,
         ),
         SizedBox(
@@ -120,7 +103,7 @@ class _LoginScreenState extends State<LoginScreen> {
         TextFormFieldCustom(
           hintText: 'Password',
           icon: Icons.remove_red_eye_sharp,
-          textController: passwordController,
+          textController: passwordRegisterController,
           obscureText: true,
         ),
         SizedBox(
@@ -132,27 +115,31 @@ class _LoginScreenState extends State<LoginScreen> {
           textController: confirmPasswordController,
           obscureText: true,
         ),
-        ElevatedButton(
-          onPressed: () {},
-          style: ElevatedButton.styleFrom(
-              padding: EdgeInsets.zero,
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(20))),
-          child: Ink(
-            decoration: BoxDecoration(
-                gradient: LinearGradient(
-                    colors: [Color(0xff9b23ea), Color(0xff391792)]),
-                borderRadius: BorderRadius.circular(20)),
-            child: Container(
-              width: 350,
-              height: 45,
-              alignment: Alignment.center,
-              child: Text(
-                'REGISTER',
-              ),
-            ),
-          ),
+      ],
+    );
+
+    final registerButtons = Column(
+      children: <Widget>[
+        SocialButtonCustom(
+            textButton: 'REGISTER WITH GOOGLE',
+            svgIconPath: 'images/googleicon.svg',
+            onPress: () {}),
+        SizedBox(
+          height: 10,
         ),
+        ElevatedButtonCustom(textButton: 'REGISTER', onPress: () {})
+      ],
+    );
+    final loginButtons = Column(
+      children: <Widget>[
+        SocialButtonCustom(
+            textButton: 'LOGIN WITH GOOGLE',
+            svgIconPath: 'images/googleicon.svg',
+            onPress: () {}),
+        SizedBox(
+          height: 10,
+        ),
+        ElevatedButtonCustom(textButton: 'LOGIN', onPress: doLogin)
       ],
     );
 
@@ -160,54 +147,66 @@ class _LoginScreenState extends State<LoginScreen> {
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(20.0),
-          child: SingleChildScrollView(
-            child: Column(
-              children: <Widget>[
-                SizedBox(
-                  height: 100,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: <Widget>[
-                    GestureDetector(
-                      onTap: () {
-                        switchLogReg(true);
-                      },
-                      child: Text(
-                        'LOGIN',
-                        style: TextStyle(color: colorLogText),
+          child: Column(
+            children: <Widget>[
+              Expanded(
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: <Widget>[
+                      SizedBox(
+                        height: 100,
                       ),
-                    ),
-                    GestureDetector(
-                      onTap: () {
-                        switchLogReg(false);
-                      },
-                      child: Text(
-                        'REGISTER',
-                        style: TextStyle(color: colorRegText),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: <Widget>[
+                          GestureDetector(
+                            onTap: () {
+                              switchLogReg(true);
+                            },
+                            child: Text(
+                              'LOGIN',
+                              style: TextStyle(color: colorLogText),
+                            ),
+                          ),
+                          GestureDetector(
+                            onTap: () {
+                              switchLogReg(false);
+                            },
+                            child: Text(
+                              'REGISTER',
+                              style: TextStyle(color: colorRegText),
+                            ),
+                          ),
+                        ],
                       ),
-                    ),
-                  ],
+                      Stack(
+                        children: <Widget>[
+                          Divider(thickness: 2),
+                          Divider(
+                            thickness: 2,
+                            endIndent: MediaQuery.of(context).size.width / 2,
+                            color: dividerLoginColor,
+                          ),
+                          Divider(
+                            thickness: 2,
+                            indent: MediaQuery.of(context).size.width / 2,
+                            color: dividerRegisterColor,
+                          )
+                        ],
+                      ),
+                      SizedBox(
+                        height: 40,
+                      ),
+                      Form(
+                        key: formKey,
+                        child: isLogin ? login : register,
+                      ),
+                    ],
+                  ),
                 ),
-                Stack(
-                  children: <Widget>[
-                    Divider(
-                      thickness: 2,
-                    ),
-                    Divider(
-                      thickness: 2,
-                      endIndent: endIndentDivider,
-                      indent: indentDivider,
-                      color: kColorPrimary,
-                    )
-                  ],
-                ),
-                SizedBox(
-                  height: 40,
-                ),
-                isLogin ? login : register,
-              ],
-            ),
+              ),
+              isLogin ? loginButtons : registerButtons,
+            ],
           ),
         ),
       ),
