@@ -43,8 +43,7 @@ class Authentication {
     pref.setString('refreshToken', refreshToken);
   }
 
-  static Future<void> signInWithGoogle() async {
-    // Trigger the authentication flow
+  static Future<String> signInWithGoogle() async {
     Firebase.initializeApp();
 
     final GoogleSignInAccount googleUser = await GoogleSignIn().signIn();
@@ -56,13 +55,7 @@ class Authentication {
     );
     UserCredential user =
         await FirebaseAuth.instance.signInWithCredential(credential);
-    print(googleAuth.accessToken);
 
-    // TODO
-    //va fatta la chiamata del token
-    //client_id
-    //client_secret
-    //grant_type = social
-    //access_token = googleAuth.accessToken
+    return googleAuth.accessToken;
   }
 }
