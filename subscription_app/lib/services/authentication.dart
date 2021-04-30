@@ -16,7 +16,7 @@ class Authentication {
     if (data != null) {
       dynamic dataDecode = jsonDecode(data);
       print(dataDecode);
-      return true; //TODO after register go to login page
+      return true;
     }
     return false;
   }

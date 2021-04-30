@@ -3,3 +3,11 @@ const kClientId = '3';
 const kGrantTypePassword = 'password';
 const kGrantTypeSocial = 'social';
 const kProviderGoogle = 'google';
+
+const kHintTextUserName = 'User Name';
+const kHintTextEmail = 'Email Address';
+const kHintTextPassword = 'Password';
+const kHintTextConfirmPassword = 'Confirm password';
+
+const Pattern kPatternEmail =
+    r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';

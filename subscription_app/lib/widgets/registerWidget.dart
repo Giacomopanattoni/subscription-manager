@@ -21,8 +21,6 @@ class _RegisterWidgetState extends State<RegisterWidget> {
 
   void doLoginWithGoogle() async {
     String googleToken = await Authentication.signInWithGoogle();
-    print('googleToken');
-    print(googleToken);
     dynamic params = {
       'client_id': kClientId,
       'client_secret': kClientSecret,
@@ -31,11 +29,9 @@ class _RegisterWidgetState extends State<RegisterWidget> {
       'access_token': googleToken
     };
     final auth = Authentication();
-    bool isLoginOk = await auth.login(params);
-    print('isLoginOk');
-    print(isLoginOk);
+    bool _isLoginOk = await auth.login(params);
 
-    if (isLoginOk) {
+    if (_isLoginOk) {
       Navigator.pushReplacementNamed(context, HomeScreen.id);
     }
   }
@@ -53,11 +49,9 @@ class _RegisterWidgetState extends State<RegisterWidget> {
         'grant_type': kGrantTypePassword,
       };
       final auth = Authentication();
-      bool isLoginOk = await auth.login(params);
-      print('isLoginOk');
-      print(isLoginOk);
+      bool _isLoginOk = await auth.login(params);
 
-      if (isLoginOk) {
+      if (_isLoginOk) {
         Navigator.pushReplacementNamed(context, HomeScreen.id);
       }
     }
@@ -67,12 +61,7 @@ class _RegisterWidgetState extends State<RegisterWidget> {
     String name = userNameRegisterController.text;
     String email = emailRegisterController.text;
     String password = passwordRegisterController.text;
-    String confirmPassword = confirmPasswordController.text;
-    bool confirmRegister = password == confirmPassword ? true : false;
-    if (!confirmRegister) {
-      print('non coincidono');
-      return;
-    } //TODO AlertDialog
+
     if (formKey.currentState.validate()) {
       dynamic params = {
         'name': name,
@@ -118,7 +107,7 @@ class _RegisterWidgetState extends State<RegisterWidget> {
       child: Column(
         children: <Widget>[
           TextFormFieldCustom(
-            hintText: 'User Name',
+            hintText: kHintTextUserName,
             icon: Icons.account_circle_outlined,
             textController: userNameRegisterController,
             obscureText: false,
@@ -127,7 +116,7 @@ class _RegisterWidgetState extends State<RegisterWidget> {
             height: 20,
           ),
           TextFormFieldCustom(
-            hintText: 'Email Address',
+            hintText: kHintTextEmail,
             icon: Icons.email_outlined,
             textController: emailRegisterController,
             obscureText: false,
@@ -136,7 +125,7 @@ class _RegisterWidgetState extends State<RegisterWidget> {
             height: 20,
           ),
           TextFormFieldCustom(
-            hintText: 'Password',
+            hintText: kHintTextPassword,
             icon: Icons.remove_red_eye_sharp,
             textController: passwordRegisterController,
             obscureText: true,
@@ -145,7 +134,7 @@ class _RegisterWidgetState extends State<RegisterWidget> {
             height: 20,
           ),
           TextFormFieldCustom(
-            hintText: 'Confirm password',
+            hintText: kHintTextConfirmPassword,
             icon: Icons.remove_red_eye_sharp,
             textController: confirmPasswordController,
             obscureText: true,

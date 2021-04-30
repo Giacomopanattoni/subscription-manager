@@ -29,11 +29,11 @@ class _LoginWidgetState extends State<LoginWidget> {
         'grant_type': kGrantTypePassword,
       };
       final auth = Authentication();
-      bool isLoginOk = await auth.login(params);
-      print('isLoginOk');
-      print(isLoginOk);
+      bool _isLoginOk = await auth.login(params);
+      print('_isLoginOk');
+      print(_isLoginOk);
 
-      if (isLoginOk) {
+      if (_isLoginOk) {
         Navigator.pushReplacementNamed(context, HomeScreen.id);
       }
     }
@@ -51,11 +51,11 @@ class _LoginWidgetState extends State<LoginWidget> {
       'access_token': googleToken
     };
     final auth = Authentication();
-    bool isLoginOk = await auth.login(params);
-    print('isLoginOk');
-    print(isLoginOk);
+    bool _isLoginOk = await auth.login(params);
+    print('_isLoginOk');
+    print(_isLoginOk);
 
-    if (isLoginOk) {
+    if (_isLoginOk) {
       Navigator.pushReplacementNamed(context, HomeScreen.id);
     }
   }
@@ -89,7 +89,7 @@ class _LoginWidgetState extends State<LoginWidget> {
       child: Column(
         children: <Widget>[
           TextFormFieldCustom(
-            hintText: 'Email Address',
+            hintText: kHintTextEmail,
             icon: Icons.email_outlined,
             textController: emailLoginController,
             obscureText: false,
@@ -98,13 +98,13 @@ class _LoginWidgetState extends State<LoginWidget> {
             height: 20,
           ),
           TextFormFieldCustom(
-            hintText: 'Password',
+            hintText: kHintTextPassword,
             icon: Icons.remove_red_eye_sharp,
             textController: passwordLoginController,
             obscureText: true,
           ),
           SizedBox(
-            height: 100,
+            height: 15,
           ),
           loginButtons
         ],

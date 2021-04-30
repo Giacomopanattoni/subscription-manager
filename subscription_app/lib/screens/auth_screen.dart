@@ -12,19 +12,19 @@ class AuthScreen extends StatefulWidget {
 }
 
 class _AuthScreenState extends State<AuthScreen> {
-  Color dividerLoginColor;
-  Color dividerRegisterColor;
-  bool isLogin;
-  Color colorRegText;
-  Color colorLogText;
+  Color _dividerLoginColor;
+  Color _dividerRegisterColor;
+  bool _isLogin;
+  Color _colorRegText;
+  Color _colorLogText;
 
   void switchLogReg(bool screenState) {
     setState(() {
-      isLogin = screenState;
-      dividerLoginColor = isLogin ? kColorPrimary : Colors.transparent;
-      dividerRegisterColor = isLogin ? Colors.transparent : kColorPrimary;
-      colorLogText = isLogin ? kColorPrimary : kTextColorDark;
-      colorRegText = isLogin ? kTextColorDark : kColorPrimary;
+      _isLogin = screenState;
+      _dividerLoginColor = _isLogin ? kColorPrimary : Colors.transparent;
+      _dividerRegisterColor = _isLogin ? Colors.transparent : kColorPrimary;
+      _colorLogText = _isLogin ? kColorPrimary : kTextColorDark;
+      _colorRegText = _isLogin ? kTextColorDark : kColorPrimary;
     });
   }
 
@@ -57,7 +57,7 @@ class _AuthScreenState extends State<AuthScreen> {
                           },
                           child: Text(
                             'LOGIN',
-                            style: TextStyle(color: colorLogText),
+                            style: TextStyle(color: _colorLogText),
                           ),
                         ),
                         GestureDetector(
@@ -66,7 +66,7 @@ class _AuthScreenState extends State<AuthScreen> {
                           },
                           child: Text(
                             'REGISTER',
-                            style: TextStyle(color: colorRegText),
+                            style: TextStyle(color: _colorRegText),
                           ),
                         ),
                       ],
@@ -77,19 +77,19 @@ class _AuthScreenState extends State<AuthScreen> {
                         Divider(
                           thickness: 2,
                           endIndent: MediaQuery.of(context).size.width / 2,
-                          color: dividerLoginColor,
+                          color: _dividerLoginColor,
                         ),
                         Divider(
                           thickness: 2,
                           indent: MediaQuery.of(context).size.width / 2,
-                          color: dividerRegisterColor,
+                          color: _dividerRegisterColor,
                         )
                       ],
                     ),
                     SizedBox(
                       height: 20,
                     ),
-                    isLogin ? LoginWidget() : RegisterWidget(),
+                    _isLogin ? LoginWidget() : RegisterWidget(),
                   ],
                 ),
               ],
