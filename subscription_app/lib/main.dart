@@ -24,7 +24,7 @@ class MyApp extends StatelessWidget {
           HomeScreen.id: (context) => HomeScreen(),
         },
         theme: ThemeData(),
-        home:AuthScreen(),
+        home: HomeScreen(),
       ),
     );
   }
