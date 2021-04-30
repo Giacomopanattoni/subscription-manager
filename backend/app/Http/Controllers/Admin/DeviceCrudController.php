@@ -39,7 +39,8 @@ class DeviceCrudController extends CrudController
      */
     protected function setupListOperation()
     {
-        CRUD::setFromDb(); // columns
+        CRUD::column('user_id');
+        CRUD::column('token');
 
         /**
          * Columns can be defined using the fluent syntax or array syntax:
@@ -58,7 +59,8 @@ class DeviceCrudController extends CrudController
     {
         CRUD::setValidation(DeviceRequest::class);
 
-        CRUD::setFromDb(); // fields
+        CRUD::field('user_id');
+        CRUD::field('token');
 
         /**
          * Fields can be defined using the fluent syntax or array syntax:

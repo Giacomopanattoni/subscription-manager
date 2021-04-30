@@ -3,11 +3,13 @@
 namespace App\Models;
 
 use Backpack\CRUD\app\Models\Traits\CrudTrait;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Device extends Model
 {
     use CrudTrait;
+    use HasFactory;
 
     /*
     |--------------------------------------------------------------------------
@@ -34,6 +36,10 @@ class Device extends Model
     | RELATIONS
     |--------------------------------------------------------------------------
     */
+
+    public function user(){
+        return $this->belongsTo(User::class);
+    }
 
     /*
     |--------------------------------------------------------------------------
