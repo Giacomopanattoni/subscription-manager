@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:subscription_app/screens/socialLogin_screen.dart';
 import 'package:subscription_app/services/appSettings.dart';
 import 'screens/auth_screen.dart';
 import 'screens/home_screen.dart';
