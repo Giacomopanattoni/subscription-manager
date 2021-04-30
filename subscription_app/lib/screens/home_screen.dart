@@ -4,6 +4,7 @@ import 'package:subscription_app/services/appSettings.dart';
 import 'package:subscription_app/services/authentication.dart';
 import 'package:subscription_app/services/currencies.dart';
 import 'package:provider/provider.dart';
+import 'package:subscription_app/services/notifications.dart';
 import 'package:subscription_app/services/subscriptions.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -83,6 +84,12 @@ class _HomeScreenState extends State<HomeScreen> {
                 Authentication.signInWithGoogle();
               },
               child: Text('Google Login'),
+            ),
+            TextButton(
+              onPressed: () {
+                Notifications();
+              },
+              child: Text('subscribe to channel'),
             )
           ],
         ),
