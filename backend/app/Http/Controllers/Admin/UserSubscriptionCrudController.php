@@ -45,6 +45,7 @@ class UserSubscriptionCrudController extends CrudController
         CRUD::column('every_count');
         CRUD::column('every_item');
         CRUD::column('notify');
+        CRUD::column('next_renewal');
 
         /**
          * Columns can be defined using the fluent syntax or array syntax:
