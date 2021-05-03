@@ -14,8 +14,7 @@ class Authentication {
     String myPath = '/api/auth/register';
     dynamic data = await api.post(path: myPath, body: params);
     if (data != null) {
-      dynamic dataDecode = jsonDecode(data);
-      print(dataDecode);
+      print(data);
       return true;
     }
     return false;

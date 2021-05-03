@@ -5,6 +5,8 @@ import 'package:subscription_app/widgets/elevatedButtonCutom.dart';
 import 'package:subscription_app/services/authentication.dart';
 import 'package:subscription_app/screens/home_screen.dart';
 import 'package:subscription_app/constants/auth.dart';
+import 'package:subscription_app/services/notifications.dart';
+import 'package:subscription_app/constants/style.dart';
 
 class LoginWidget extends StatefulWidget {
   @override
@@ -19,7 +21,7 @@ class _LoginWidgetState extends State<LoginWidget> {
   void doLogin() async {
     String email = emailLoginController.text;
     String password = passwordLoginController.text;
-
+    print(formKey.currentState.validate());
     if (formKey.currentState.validate()) {
       dynamic params = {
         'username': email,
@@ -30,10 +32,12 @@ class _LoginWidgetState extends State<LoginWidget> {
       };
       final auth = Authentication();
       bool _isLoginOk = await auth.login(params);
-      print('_isLoginOk');
-      print(_isLoginOk);
-
-      if (_isLoginOk) {
+      if (!_isLoginOk) {
+        await _showMyDialog();
+        return;
+      }
+      bool _isNotificationOk = await doNotification();
+      if (_isLoginOk && _isNotificationOk) {
         Navigator.pushReplacementNamed(context, HomeScreen.id);
       }
     }
@@ -41,8 +45,7 @@ class _LoginWidgetState extends State<LoginWidget> {
 
   void doLoginWithGoogle() async {
     String googleToken = await Authentication.signInWithGoogle();
-    print('googleToken');
-    print(googleToken);
+
     dynamic params = {
       'client_id': kClientId,
       'client_secret': kClientSecret,
@@ -52,12 +55,51 @@ class _LoginWidgetState extends State<LoginWidget> {
     };
     final auth = Authentication();
     bool _isLoginOk = await auth.login(params);
-    print('_isLoginOk');
-    print(_isLoginOk);
+    bool _isNotificationOk = await doNotification();
 
-    if (_isLoginOk) {
+    if (_isLoginOk && _isNotificationOk) {
       Navigator.pushReplacementNamed(context, HomeScreen.id);
     }
+  }
+
+  Future<bool> doNotification() async {
+    Notifications notify = Notifications();
+    String tokenFire = await notify.getTokenFire();
+    bool data = await notify.chanelNotification(tokenFire: tokenFire);
+    return data;
+  }
+
+  Future<void> _showMyDialog() async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Icon(
+            Icons.error,
+            color: kColorError,
+            size: 70,
+          ),
+          content: SingleChildScrollView(
+            child: ListBody(
+              children: <Widget>[
+                Text('Opss..'),
+                Text('Please check your credentials and try again'),
+              ],
+            ),
+          ),
+          actions:
+          <Widget>[
+            TextButton(
+              child: Text('OK', style: TextStyle(color: kTextColorDark)),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
   }
 
   @override
