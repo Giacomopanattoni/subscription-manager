@@ -10,8 +10,10 @@ class NotificationController extends Controller
 {
     public function notifyUser(User $user, $title, $message)
     {
-        $tokens = $user->devices()->select('token')->get()->pluck('token')->all();
+        $tokens = $user->devices()->select('token')->get()->pluck('token');
+
         Log::debug($tokens);
+        Log::debug(env('FIREBASE_KEY'));
         if (count($tokens) > 0) {
             try {
                 $response = Http::withHeaders([
@@ -29,7 +31,5 @@ class NotificationController extends Controller
                 Log::error($th);
             }
         }
-        Log::debug('error');
-        return 'error';
     }
 }
