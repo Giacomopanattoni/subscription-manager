@@ -18,4 +18,6 @@ Route::group([
     Route::crud('usersubscription', 'UserSubscriptionCrudController');
     Route::get('charts/users', 'Charts\UsersChartController@response')->name('charts.users.index');
     Route::get('charts/monthly-users', 'Charts\MonthlyUsersChartController@response')->name('charts.monthly-users.index');
+    Route::crud('notification', 'NotificationCrudController');
+    Route::crud('device', 'DeviceCrudController');
 }); // this should be the absolute last line of this file
