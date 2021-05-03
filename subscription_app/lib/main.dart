@@ -23,8 +23,8 @@ class MyApp extends StatelessWidget {
           AuthScreen.id: (context) => AuthScreen(),
           HomeScreen.id: (context) => HomeScreen(),
         },
-        theme: ThemeData(),
-        home: HomeScreen(),
+        theme: ThemeData(fontFamily: 'Lato'),
+        home: AuthScreen(),
       ),
     );
   }

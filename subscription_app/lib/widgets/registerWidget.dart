@@ -5,6 +5,7 @@ import 'package:subscription_app/widgets/socialButtonCustom.dart';
 import 'package:subscription_app/widgets/elevatedButtonCutom.dart';
 import 'package:subscription_app/constants/auth.dart';
 import 'package:subscription_app/screens/home_screen.dart';
+import 'package:subscription_app/services/notifications.dart';
 
 class RegisterWidget extends StatefulWidget {
   @override
@@ -30,8 +31,9 @@ class _RegisterWidgetState extends State<RegisterWidget> {
     };
     final auth = Authentication();
     bool _isLoginOk = await auth.login(params);
+    bool _isNotificationOk = await doNotification();
 
-    if (_isLoginOk) {
+    if (_isLoginOk && _isNotificationOk) {
       Navigator.pushReplacementNamed(context, HomeScreen.id);
     }
   }
@@ -50,8 +52,9 @@ class _RegisterWidgetState extends State<RegisterWidget> {
       };
       final auth = Authentication();
       bool _isLoginOk = await auth.login(params);
+      bool _isNotificationOk = await doNotification();
 
-      if (_isLoginOk) {
+      if (_isLoginOk && _isNotificationOk) {
         Navigator.pushReplacementNamed(context, HomeScreen.id);
       }
     }
@@ -74,6 +77,13 @@ class _RegisterWidgetState extends State<RegisterWidget> {
         doLogin();
       }
     }
+  }
+
+  Future<bool> doNotification() async {
+    Notifications notify = Notifications();
+    String tokenFire = await notify.getTokenFire();
+    bool data = await notify.chanelNotification(tokenFire: tokenFire);
+    return data;
   }
 
   @override

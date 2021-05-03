@@ -27,6 +27,7 @@ class _TextFormFieldCustomState extends State<TextFormFieldCustom> {
   String _valuePassword;
 
   String validation(String value) {
+
     if (value == null || value.isEmpty) {
       return 'Please enter your ' + widget.hintText.toLowerCase();
     }
@@ -36,23 +37,23 @@ class _TextFormFieldCustomState extends State<TextFormFieldCustom> {
         if (!regexEmail.hasMatch(value)) {
           return 'Please enter a valid ' + widget.hintText.toLowerCase();
         }
-        return '';
+        return null;
         break;
       case kHintTextPassword:
         _valuePassword = value;
         if (value.length < 6) {
           return 'The password must be at least 6 characters';
         }
-        return '';
+        return null;
         break;
       case kHintTextConfirmPassword:
         if (_valuePassword != value) {
           return 'The password and confirmation password do not match';
         }
-        return '';
+        return null;
         break;
       default:
-        return '';
+        return null;
         break;
     }
   }
