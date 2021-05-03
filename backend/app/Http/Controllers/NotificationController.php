@@ -54,8 +54,11 @@ class NotificationController extends Controller
 
     public function calculateNextRenewal()
     {
+        Log::debug('calculating renewal');
         $subscriptions = UserSubscription::where('next_renewal', null)->get();
+
         foreach ($subscriptions as $subscription) {
+            
             $next = $this->getNextRenewal($subscription);
             $subscription->next_renewal = $next;
             $subscription->save();
@@ -77,6 +80,7 @@ class NotificationController extends Controller
                 while ($startDate <= Carbon::today()) {
                     $startDate->addMonths($subscription->every_count);
                 }
+                Log::debug($startDate);
                 return $startDate->isoFormat('Y-M-D');
                 break;
 
@@ -84,6 +88,7 @@ class NotificationController extends Controller
                 while ($startDate <= Carbon::today()) {
                     $startDate->addYears($subscription->every_count);
                 }
+                Log::debug($startDate);
                 return $startDate->isoFormat('Y-M-D');
                 break;
         }
