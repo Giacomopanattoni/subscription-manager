@@ -234,4 +234,6 @@ return [
 
     ],
 
+    'firebase' => env('FIREBASE_KEY','AAAAeoS6ZdQ:APA91bE5oZyYsQavqb7iD6JRvHkNR6PHfAMUK2NnN9JHcr_gT1xzkGK5BnNgeJdi2JcM8hVLQAbhjbtjIk3MRwneP71r-zHRMGQkE8UoNATnfwLlFf4omE0lZeM28avFrJIz_bvHftel'),
+
 ];

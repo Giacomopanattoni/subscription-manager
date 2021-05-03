@@ -58,7 +58,11 @@ class NotificationCrudController extends CrudController
     {
         CRUD::setValidation(NotificationRequest::class);
 
-        CRUD::setFromDb(); // fields
+        CRUD::field('user_id');
+        CRUD::field('title');
+        CRUD::field('message');
+        CRUD::field('date');
+
 
         /**
          * Fields can be defined using the fluent syntax or array syntax:

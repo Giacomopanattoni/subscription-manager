@@ -12,6 +12,17 @@ class UserSubscription extends Model
 
     protected $table='user_subscriptions';
 
+    protected $fillable = [
+        'user_id',
+        'name',
+        'price',
+        'renewal_day',
+        'every_count',
+        'every_item',
+        'from',
+        'notify'
+    ];
+
     public function user(){
         return $this->belongsTo(User::class);
     }

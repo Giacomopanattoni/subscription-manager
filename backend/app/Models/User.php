@@ -50,4 +50,8 @@ class User extends Authenticatable
         return $this->hasMany(UserSubscription::class);
     } 
 
+    public function devices(){
+        return $this->hasMany(Device::class);
+    } 
+
 }

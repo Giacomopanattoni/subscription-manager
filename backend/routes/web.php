@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\NotificationController;
+use App\Models\User;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,4 +17,10 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return redirect('/admin');
+});
+
+Route::get('/test-notification', function () {
+    $user = User::first();
+    $notification = new NotificationController();
+    $notification->notifyUser($user,'Test','weeeella');
 });
