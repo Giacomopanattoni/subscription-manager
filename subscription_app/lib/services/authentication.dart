@@ -44,7 +44,9 @@ class Authentication {
 
   static Future<String> signInWithGoogle() async {
     Firebase.initializeApp();
-    await GoogleSignIn().disconnect();
+    if (await GoogleSignIn().isSignedIn()) {
+      await GoogleSignIn().disconnect();
+    }
     final GoogleSignInAccount googleUser = await GoogleSignIn().signIn();
     final GoogleSignInAuthentication googleAuth =
         await googleUser.authentication;
