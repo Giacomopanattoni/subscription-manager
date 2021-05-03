@@ -18,14 +18,7 @@ use Illuminate\Support\Facades\Route;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-Route::get('next_renewal', function(Request $request){
-    $notify = new NotificationController();
-    $notify->calculateNextRenewal();
-});
-Route::get('send_renewal', function(Request $request){
-    $notify = new NotificationController();
-    $notify->checkTodayNotifications();
-});
+
 Route::post('auth/register', [AuthController::class,'create']);
 Route::post('auth/google', [AuthController::class,'googleLogin']);
 
