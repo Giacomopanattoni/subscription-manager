@@ -4,6 +4,7 @@ import 'package:subscription_app/widgets/loginWidget.dart';
 import 'package:subscription_app/widgets/registerWidget.dart';
 import 'package:subscription_app/constants/style.dart';
 
+
 class AuthScreen extends StatefulWidget {
   static const String id = 'auth_screen';
 
@@ -47,73 +48,69 @@ class _AuthScreenState extends State<AuthScreen> {
       ),
       child: Scaffold(
         backgroundColor: Colors.transparent,
-        body: SingleChildScrollView(
-          child: SafeArea(
-            child: Padding(
-              padding: const EdgeInsets.all(20.0),
+        body: SafeArea(
+          child: Padding(
+            padding: const EdgeInsets.all(20.0),
+            child: SingleChildScrollView(
               child: Column(
                 children: <Widget>[
-                  Column(
+                  SizedBox(
+                    height: 100,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: <Widget>[
-                      SizedBox(
-                        height: 100,
+                      GestureDetector(
+                        onTap: () {
+                          switchLogReg(0);
+                        },
+                        child: Text(
+                          'LOGIN',
+                          style: TextStyle(color: _colorLogText),
+                        ),
                       ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: <Widget>[
-                          GestureDetector(
-                            onTap: () {
-                              switchLogReg(0);
-                            },
-                            child: Text(
-                              'LOGIN',
-                              style: TextStyle(color: _colorLogText),
-                            ),
-                          ),
-                          GestureDetector(
-                            onTap: () {
-                              switchLogReg(1);
-                            },
-                            child: Text(
-                              'REGISTER',
-                              style: TextStyle(color: _colorRegText),
-                            ),
-                          ),
-                        ],
-                      ),
-                      Stack(
-                        children: <Widget>[
-                          Divider(thickness: 2),
-                          Divider(
-                            thickness: 2,
-                            endIndent: MediaQuery.of(context).size.width / 2,
-                            color: _dividerLoginColor,
-                          ),
-                          Divider(
-                            thickness: 2,
-                            indent: MediaQuery.of(context).size.width / 2,
-                            color: _dividerRegisterColor,
-                          )
-                        ],
-                      ),
-                      SizedBox(
-                        height: 20,
-                      ),
-                      SizedBox(
-                        height: MediaQuery.of(context).size.height,
-                        child: PageView(
-                          onPageChanged: (int) {
-                            switchLogReg(int);
-                          },
-                          scrollDirection: Axis.horizontal,
-                          controller: controller,
-                          children: [
-                            LoginWidget(),
-                            RegisterWidget(),
-                          ],
+                      GestureDetector(
+                        onTap: () {
+                          switchLogReg(1);
+                        },
+                        child: Text(
+                          'REGISTER',
+                          style: TextStyle(color: _colorRegText),
                         ),
                       ),
                     ],
+                  ),
+                  Stack(
+                    children: <Widget>[
+                      Divider(thickness: 2),
+                      Divider(
+                        thickness: 2,
+                        endIndent: MediaQuery.of(context).size.width / 2,
+                        color: _dividerLoginColor,
+                      ),
+                      Divider(
+                        thickness: 2,
+                        indent: MediaQuery.of(context).size.width / 2,
+                        color: _dividerRegisterColor,
+                      )
+                    ],
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height,
+                    child: PageView(
+                      onPageChanged: (int) {
+                        switchLogReg(int);
+                      },
+                      scrollDirection: Axis.horizontal,
+                      controller: controller,
+                      children: [
+                        LoginWidget(),
+                        RegisterWidget(),
+                      ],
+                    ),
                   ),
                 ],
               ),

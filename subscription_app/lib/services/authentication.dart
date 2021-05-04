@@ -24,22 +24,13 @@ class Authentication {
     String myPath = '/api/auth/token';
     dynamic data = await api.post(path: myPath, body: params);
     if (data != null) {
+      print('LOGIN DATA');
+      print(data);
       dynamic dataDecode = jsonDecode(data);
-      myPref(dataDecode);
-      return true;
+      bool prefSaved = await myPref(dataDecode);
+      return prefSaved ? true : null;
     }
     return false;
-  }
-
-  void myPref(dynamic authData) async {
-    SharedPreferences pref = await SharedPreferences.getInstance();
-    String token = authData['access_token'];
-    int expires = authData['expires_in'];
-    String refreshToken = authData['refresh_token'];
-
-    pref.setString('myToken', token);
-    pref.setInt('expires', expires);
-    pref.setString('refreshToken', refreshToken);
   }
 
   static Future<String> signInWithGoogle() async {
@@ -58,5 +49,22 @@ class Authentication {
         await FirebaseAuth.instance.signInWithCredential(credential);
 
     return googleAuth.accessToken;
+  }
+
+  Future<bool> myPref(dynamic authData) async {
+    if (authData != null) {
+      SharedPreferences pref = await SharedPreferences.getInstance();
+      String token = authData['access_token'];
+      int expires = authData['expires_in'];
+      String refreshToken = authData['refresh_token'];
+      print('MYPREF');
+      print(refreshToken);
+
+      pref.setString('myToken', token);
+      pref.setInt('expires', expires);
+      pref.setString('refreshToken', refreshToken);
+      return true;
+    }
+    return false;
   }
 }

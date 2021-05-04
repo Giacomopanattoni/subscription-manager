@@ -1,6 +1,7 @@
 const kClientSecret = 'bVQwHIHugs8ZJl8PWVmd2taJ8297lQBW6ODrJIoF';
 const kClientId = '3';
 const kGrantTypePassword = 'password';
+const kGrantTypeRefresh = 'refresh_token';
 const kGrantTypeSocial = 'social';
 const kProviderGoogle = 'google';
 
