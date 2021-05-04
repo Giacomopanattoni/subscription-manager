@@ -2,13 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Models\UserSubscription;
+use App\Models\UserInvitation;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class SubscriptionController extends Controller
 {
 
-    private roles = [
+    private $roles = [
         'sub_admin',
         'sub_user'
     ];
@@ -43,11 +46,11 @@ class SubscriptionController extends Controller
 
     public function delete(UserSubscription $subscription,Request $request){
         //TODO only master can delete
-        $userPermission = getUserPermissions($request->user(),$subscription);
+        $userPermission = $this->getUserPermissions($request->user(),$subscription);
         if(!$userPermission){
             return $this->jsonResponse(false,[
                 'message' => 'Non puoi eliminare questa subscription'
-            ])
+            ]);
         }
         if($userPermission == $this->roles[0] && $subscription->delete()){
             return $this->jsonResponse(true,'Abbonamento eliminato con successo');
@@ -60,11 +63,11 @@ class SubscriptionController extends Controller
 
     public function edit (UserSubscription $subscription, Request $request){
         //TODO: only subscription users can edit
-        $userPermission = getUserPermissions($request->user(),$subscription);
+        $userPermission = $this->getUserPermissions($request->user(),$subscription);
         if($userPermission != $this->roles[0]){
             return $this->jsonResponse(false,[
                 'message' => 'Non puoi modificare i dati di questa subscription'
-            ])
+            ]);
         }
         $validation = $request->validate([
             'name' => 'required|string|max:255',
@@ -90,28 +93,36 @@ class SubscriptionController extends Controller
 
     public function listInvitations(Request $request){
         $invitations = UserInvitation::where([
-            ['invited_user_id',Auth::user()],
+            ['invited_user_id',Auth::user()->id],
             ['accepted',0]
-        ])->with('subscription')->get();
-        return jsonResponse(true,$invitations);
+        ])->get();
+        return $this->jsonResponse(true,$invitations);
     }
 
     public function inviteUser(UserSubscription $subscription, Request $request){
         $request->validate([
             'email' => 'required|email|max:255',
         ]);
-        $permissions = getUserPermissions(Auth::user(),$subscription);
-        if($userPermission != $this->roles[0]){
+        $permissions = $this->getUserPermissions($request->user(),$subscription);
+        if($permissions != $this->roles[0]){
             return $this->jsonResponse(false,[
                 'message' => 'Non puoi invitare persone in questa subscription'
-            ])
+            ]);
         }
         $email = request()->post('email');
         $invitedUser = User::where('email',$email)->first();
         if(!$invitedUser){
             return $this->jsonResponse(false,[
                 'message' => 'Non esiste nessun utente con questa mail'
-            ])
+            ]);
+        }
+        if(UserInvitation::where([
+            ['invited_user_id',$invitedUser->id],
+            ['user_subscription_id',$subscription->id]
+        ])->first()){
+            return $this->jsonResponse(true,[
+                'message' => 'Invito inviato con successo'
+            ]);
         }
         $invitation = new UserInvitation();
         $invitation->user_id = Auth::user()->id;
@@ -121,11 +132,11 @@ class SubscriptionController extends Controller
         if($invitation->save()){
             return $this->jsonResponse(true,[
                 'message' => 'Invito inviato con successo'
-            ])
+            ]);
         }
         return $this->jsonResponse(false,[
             'message' => 'Si é verificato un errore, riprova'
-        ])
+        ]);
     }
 
     public function acceptInvitation(UserInvitation $invitation, Request $request){
@@ -138,17 +149,17 @@ class SubscriptionController extends Controller
                 $invitation->save();
                 return $this->jsonResponse(true,[
                     'message' => 'Richiesta accettata con successo'
-                ])
+                ]);
             }else{
                 $invitation->delete();
                 return $this->jsonResponse(true,[
                     'message' => 'Richiesta rifiutata con successo'
-                ])
+                ]);
             }
         }
         return $this->jsonResponse(false,[
             'message' => 'Non puoi unirti a questa subscription'
-        ])
+        ]);
     }
 
     public function jsonResponse($success, $data){
