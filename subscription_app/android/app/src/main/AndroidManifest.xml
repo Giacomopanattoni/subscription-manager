@@ -2,7 +2,7 @@
     package="com.foolstack.subscription_app">
     <application
         android:usesCleartextTraffic="true"
-        android:label="subscription_app"
+        android:label="Advanced Sub Manager"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"
