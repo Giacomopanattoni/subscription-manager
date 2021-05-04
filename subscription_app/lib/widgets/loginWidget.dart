@@ -21,7 +21,6 @@ class _LoginWidgetState extends State<LoginWidget> {
   void doLogin() async {
     String email = emailLoginController.text;
     String password = passwordLoginController.text;
-    print(formKey.currentState.validate());
     if (formKey.currentState.validate()) {
       dynamic params = {
         'username': email,
@@ -56,7 +55,6 @@ class _LoginWidgetState extends State<LoginWidget> {
     final auth = Authentication();
     bool _isLoginOk = await auth.login(params);
     bool _isNotificationOk = await doNotification();
-
     if (_isLoginOk && _isNotificationOk) {
       Navigator.pushReplacementNamed(context, HomeScreen.id);
     }
@@ -88,8 +86,7 @@ class _LoginWidgetState extends State<LoginWidget> {
               ],
             ),
           ),
-          actions:
-          <Widget>[
+          actions: <Widget>[
             TextButton(
               child: Text('OK', style: TextStyle(color: kTextColorDark)),
               onPressed: () {
