@@ -45,7 +45,7 @@ class SubscriptionController extends Controller
     }
 
     public function delete(UserSubscription $subscription,Request $request){
-        //TODO only master can delete
+
         $userPermission = $this->getUserPermissions($request->user(),$subscription);
         if(!$userPermission){
             return $this->jsonResponse(false,[
@@ -62,7 +62,7 @@ class SubscriptionController extends Controller
     }
 
     public function edit (UserSubscription $subscription, Request $request){
-        //TODO: only subscription users can edit
+
         $userPermission = $this->getUserPermissions($request->user(),$subscription);
         if($userPermission != $this->roles[0]){
             return $this->jsonResponse(false,[

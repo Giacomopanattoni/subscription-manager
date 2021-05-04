@@ -5,11 +5,15 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class userSetting extends Model
+class UserSetting extends Model
 {
     use HasFactory;
 
     public function user(){
         return $this->belongsTo('user');
+    }
+
+    public function currency(){
+        return $this->belongsTo(Currency::class);
     }
 }

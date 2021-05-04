@@ -15,6 +15,7 @@ class CreateUserSettingsTable extends Migration
     {
         Schema::create('user_settings', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->string('language')->default('en');
             $table->foreignId('currency_id')->constrained('currencies');
             $table->timestamps();
