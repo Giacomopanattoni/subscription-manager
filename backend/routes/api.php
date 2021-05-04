@@ -41,6 +41,9 @@ Route::middleware('auth:api')->group(function () {
     Route::get('user-subscriptions', [SubscriptionController::class,'list']);
     Route::post('user-subscriptions/create', [SubscriptionController::class,'create']);
     Route::post('user-subscriptions/{subscription}', [SubscriptionController::class,'edit']);
+    Route::post('user-subscriptions/{subscription}/invite', [SubscriptionController::class,'inviteUser']);
+    Route::post('invitations', [SubscriptionController::class,'listInvitations']);
+    Route::post('invitations/{invitation}', [SubscriptionController::class,'acceptInvitation']);
     Route::post('device/add', [DeviceController::class,'addDevice']);
 
 

@@ -16,4 +16,8 @@ class UserInvitation extends Model
     public function user(){
         return $this->belongsTo(User::class, 'invited_user_id');
     }
+
+    public function subscription(){
+        return $this->belongsTo(UserSubscription::class);
+    }
 }
