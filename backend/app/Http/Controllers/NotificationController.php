@@ -26,7 +26,7 @@ class NotificationController extends Controller
                     'registration_ids' => $tokens,
                     'notification' => [
                         'title' => $title,
-                        'text' => $message
+                        'body' => $message
                     ]
                 ]);
                 Log::debug($response);
