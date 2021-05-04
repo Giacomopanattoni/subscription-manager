@@ -44,7 +44,7 @@ class NotificationController extends Controller
         ])->take(100)->with('user')->get();
 
         foreach ($subscriptions as $subscription) {
-            $this->notifyUser($subscription->user, 'rinnovo abbonamento' . $subscription->name);
+            $this->notifyUser($subscription->user, 'Rinnovo abbonamento ' . $subscription->name,"Il tuo abbonamento per $subscription->name si rinnoverá il giorno $subscription->next_renewal");
             $subscription->last_renewal = $subscription->next_renewal;
             $subscription->next_renewal = NULL;
             $subscription->save();
