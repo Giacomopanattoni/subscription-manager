@@ -7,6 +7,12 @@ use Illuminate\Http\Request;
 
 class SubscriptionController extends Controller
 {
+
+    private roles = [
+        'sub_admin',
+        'sub_user'
+    ];
+
     public function create(Request $request){
 
         $request->validate([
@@ -32,17 +38,34 @@ class SubscriptionController extends Controller
     }
 
     public function list(Request $request){
-        return $this->jsonResponse(true,$request->user()->userSubscriptions()->get());
+        return $this->jsonResponse(true,$request->user()->subscriptions);
     }
 
-    public function delete(UserSubscription $subscription){
-
-        if($subscription->delete()){
+    public function delete(UserSubscription $subscription,Request $request){
+        //TODO only master can delete
+        $userPermission = getUserPermissions($request->user(),$subscription);
+        if(!$userPermission){
+            return $this->jsonResponse(false,[
+                'message' => 'Non puoi eliminare questa subscription'
+            ])
+        }
+        if($userPermission == $this->roles[0] && $subscription->delete()){
+            return $this->jsonResponse(true,'Abbonamento eliminato con successo');
+        }
+        if($userPermission == $this->roles[1]){
+            $subscription->userInvitations()->where('invited_user_id',$request->user()->id)->first()->delete();
             return $this->jsonResponse(true,'Abbonamento eliminato con successo');
         }
     }
 
     public function edit (UserSubscription $subscription, Request $request){
+        //TODO: only subscription users can edit
+        $userPermission = getUserPermissions($request->user(),$subscription);
+        if($userPermission != $this->roles[0]){
+            return $this->jsonResponse(false,[
+                'message' => 'Non puoi modificare i dati di questa subscription'
+            ])
+        }
         $validation = $request->validate([
             'name' => 'required|string|max:255',
             'price' => 'required|numeric',
@@ -77,5 +100,15 @@ class SubscriptionController extends Controller
                 'data' => $data
             ],200);
         }
+    }
+
+    public function getUserPermissions(User $user, UserSubscription $subscription){
+        if($subscription->user_id == $user->id){
+            return 'sub_admin';
+        }
+        if($subscription->userInvitations()->where('invited_user_id',$user->id)->first()){
+            return 'sub_user';
+        }
+        return null;
     }
 }

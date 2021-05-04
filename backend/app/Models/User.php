@@ -50,8 +50,20 @@ class User extends Authenticatable
         return $this->hasMany(UserSubscription::class);
     } 
 
+    public function sharedSubscriptions(){
+        return $this->hasManyThrough(UserSubscription::class, UserInvitation::class,'invited_user_id','id','id','user_subscription_id');
+    }
+
+    public function getSubscriptionsAttribute(){
+        return $this->sharedSubscriptions->merge($this->userSubscriptions);
+    }
+
+    public function userInvitations(){
+        return $this->hasMany(UserInvitation::class);
+    } 
+
     public function devices(){
         return $this->hasMany(Device::class);
-    } 
+    }
 
 }

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Requests\UserSubscriptionRequest;
+use App\Models\User;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
 
@@ -103,4 +104,14 @@ class UserSubscriptionCrudController extends CrudController
     {
         $this->setupCreateOperation();
     }
+
+    protected function setupShowOperation(){
+        $this->crud->addColumn([  
+            'name'         => 'invitedUsers', // name of relationship method in the model
+            'type'         => 'relationship',
+            'label'        => 'Invitations', // Table column heading
+             'attribute' => 'id', // foreign key attribute that is shown to user
+         ],);
+    }
+
 }

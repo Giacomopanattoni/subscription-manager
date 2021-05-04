@@ -5,6 +5,8 @@ use App\Http\Controllers\DeviceController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\SubscriptionController;
 use App\Models\Currency;
+use App\Models\User;
+use App\Models\UserSubscription;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -18,6 +20,11 @@ use Illuminate\Support\Facades\Route;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+
+Route::get('test', function(Request $request){
+    return UserSubscription::where('id',5)->first()->allUsers;
+    return User::where('id',2)->with(['userSubscriptions','sharedSubscriptions','allSubscriptions'])->first();
+});
 
 Route::post('auth/register', [AuthController::class,'create']);
 Route::post('auth/google', [AuthController::class,'googleLogin']);

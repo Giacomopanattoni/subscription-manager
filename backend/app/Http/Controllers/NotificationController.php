@@ -41,7 +41,7 @@ class NotificationController extends Controller
         $subscriptions = UserSubscription::where([
             ['next_renewal', Carbon::now()->toDateString()],
             ['notify', 1]
-        ])->with('user')->get();
+        ])->take(100)->with('user')->get();
 
         foreach ($subscriptions as $subscription) {
             $this->notifyUser($subscription->user, 'rinnovo abbonamento' . $subscription->name);
@@ -54,10 +54,9 @@ class NotificationController extends Controller
     public function calculateNextRenewal()
     {
         Log::debug('calculating renewal');
-        $subscriptions = UserSubscription::where('next_renewal', null)->get();
+        $subscriptions = UserSubscription::where('next_renewal', null)->take(100)->get();
 
         foreach ($subscriptions as $subscription) {
-
             $next = $this->getNextRenewal($subscription);
             $subscription->next_renewal = $next;
             $subscription->save();
