@@ -74,7 +74,7 @@ class UserSubscriptionCrudController extends CrudController
             'label'       => 'recurring', 
             'type'        => 'radio',
             'options'     => [ 
-                'day' => "Day",
+                'week' => "Week",
                 'month' => "Month",
                 'year' => "Year"
             ],

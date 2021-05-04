@@ -14,7 +14,7 @@ class SubscriptionController extends Controller
             'price' => 'required|numeric',
             'renewal_day' => 'required|numeric',
             'every_count' => 'required|numeric',
-            'every_item' => 'required|string|in:day,month,year',
+            'every_item' => 'required|string|in:week,month,year',
             'from' => 'required|date',
             'notify' => 'required|bool',
         ]);
@@ -48,7 +48,7 @@ class SubscriptionController extends Controller
             'price' => 'required|numeric',
             'renewal_day' => 'required|numeric',
             'every_count' => 'required|numeric',
-            'every_item' => 'required|string|in:day,month,year',
+            'every_item' => 'required|string|in:week,month,year',
             'from' => 'required|date',
             'notify' => 'required|bool',
         ]);
