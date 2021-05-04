@@ -13,7 +13,8 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        //
+        'App\Console\Commands\SendNotifications',
+        'App\Console\Commands\UpdateCurrency',
     ];
 
     /**
@@ -25,6 +26,7 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
          $schedule->command('update:currency')->daily();
+         $schedule->command('send:notifications')->everyThreeMinutes();
     }
 
     /**

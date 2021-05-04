@@ -10,9 +10,7 @@
 	</ul>
 </li>
 <li class='nav-item'><a class='nav-link' href='{{ backpack_url('usersubscription') }}'><i class='nav-icon la la-ge'></i> Subscriptions</a></li>
-<li class='nav-item'><a class='nav-link' href='{{ backpack_url('notification') }}'><i class='nav-icon la la-question'></i> Notifications</a></li>
-<li class='nav-item'><a class='nav-link' href='{{ backpack_url('device') }}'><i class='nav-icon la la-question'></i> Devices</a></li>
-
-@endhasrole
-
+<li class='nav-item'><a class='nav-link' href='{{ backpack_url('notification') }}'><i class='nav-icon la la-bell'></i> Notifications</a></li>
+<li class='nav-item'><a class='nav-link' href='{{ backpack_url('device') }}'><i class='nav-icon la la-mobile-phone'></i> Devices</a></li>
 <li class='nav-item'><a class='nav-link' href='{{ backpack_url('log') }}'><i class='nav-icon la la-terminal'></i> Logs</a></li>
+@endhasrole
