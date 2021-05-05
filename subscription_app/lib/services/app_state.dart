@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:subscription_app/constants/auth.dart';
@@ -8,7 +10,6 @@ class AppState extends ChangeNotifier {
   SharedPreferences pref;
   String token;
   String refreshToken;
-  int expires;
 
   AppState() {
     print('LOADING...');
@@ -25,7 +26,18 @@ class AppState extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<bool> checkToken() async {}
+  Future<void> checkToken() async {
+    dynamic tokenSplit = token.split(".");
+    dynamic payload = json
+        .decode(ascii.decode(base64.decode(base64.normalize(tokenSplit[1]))));
+    if (DateTime.fromMillisecondsSinceEpoch(payload["exp"].toInt() * 1000)
+        .isAfter(DateTime.now())) {
+      return true;
+    } else {
+      refresh();
+      print('refreshed');
+    }
+  }
 
   Future<bool> login(String email, String password) async {
     dynamic params = {
@@ -68,11 +80,10 @@ class AppState extends ChangeNotifier {
   Future<void> storeUserData(userData) async {
     print('STORING DATA...');
     token = userData['access_token'];
-    expires = userData['expires_in'];
     refreshToken = userData['refresh_token'];
+    print(token);
 
     pref.setString('myToken', token);
-    pref.setInt('expires', expires);
     pref.setString('refreshToken', refreshToken);
   }
 
@@ -84,6 +95,7 @@ class AppState extends ChangeNotifier {
   }
 
   Future<void> refresh() async {
+    if (refreshToken == null) logout();
     final auth = Authentication();
     dynamic params = {
       'client_id': kClientId,
@@ -91,15 +103,18 @@ class AppState extends ChangeNotifier {
       'grant_type': kGrantTypeRefresh,
       'refresh_token': refreshToken,
     };
-    bool isLoginOK = await auth.login(params);
-    return isLoginOK;
+    dynamic userData = await auth.login(params);
+    if (userData != null) {
+      await storeUserData(userData);
+    } else {
+      logout();
+    }
   }
 
   void logout() {
     pref.clear();
     token = null;
     refreshToken = null;
-    expires = 0;
     notifyListeners();
   }
 }
