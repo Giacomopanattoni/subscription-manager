@@ -1,5 +1,8 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:subscription_app/services/appSettings.dart';
+import 'package:subscription_app/services/app_state.dart';
 import 'package:subscription_app/widgets/spinner.dart';
 import 'screens/auth_screen.dart';
 import 'screens/home_screen.dart';
@@ -54,26 +57,24 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider<AppSettings>(create: (context) => AppSettings()),
+        ChangeNotifierProvider<AppState>(create: (context) => AppState()),
       ],
-      child: MaterialApp(
-        title: 'Advanced Sub Manager',
-        initialRoute: '/',
-        routes: {
-          AuthScreen.id: (context) => AuthScreen(),
-          HomeScreen.id: (context) => HomeScreen(),
+      child: Consumer<AppState>(
+        builder: (context, state, _) {
+          return MaterialApp(
+            title: 'Translation App',
+            theme: ThemeData(
+              primarySwatch: Colors.purple,
+              accentColor: Colors.deepOrange,
+              fontFamily: 'Lato',
+            ),
+            home: state.token != null ? HomeScreen() : AuthScreen(),
+            routes: <String, WidgetBuilder>{
+              AuthScreen.id: (context) => AuthScreen(),
+              HomeScreen.id: (context) => HomeScreen(),
+            },
+          );
         },
-        theme: ThemeData(fontFamily: 'Lato'),
-        home: FutureBuilder(
-          future: isTokenValid,
-          builder: (context, snapshot) {
-            if (!snapshot.hasData) return Spinner();
-            if (snapshot.data) {
-              return HomeScreen();
-            } else {
-              return AuthScreen();
-            }
-          },
-        ),
       ),
     );
   }

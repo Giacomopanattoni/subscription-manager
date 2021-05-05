@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:subscription_app/services/app_state.dart';
 
 class SettingsScreen extends StatefulWidget {
   @override
@@ -10,7 +12,12 @@ class _SettingsScreenState extends State<SettingsScreen> {
   Widget build(BuildContext context) {
     return Container(
       child: Center(
-        child: Text('settings'),
+        child: TextButton(
+          child: Text('logout'),
+          onPressed: () {
+            Provider.of<AppState>(context, listen: false).logout();
+          },
+        ),
       ),
     );
   }

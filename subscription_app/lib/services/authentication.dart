@@ -2,7 +2,6 @@ import 'dart:convert';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:subscription_app/services/api.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
@@ -18,14 +17,13 @@ class Authentication {
     return false;
   }
 
-  Future<bool> login(dynamic params) async {
+  Future<dynamic> login(dynamic params) async {
     dynamic data = await api.post(path: '/api/auth/token', body: params);
     if (data != null) {
       dynamic dataDecode = jsonDecode(data);
-      bool prefSaved = await myPref(dataDecode);
-      return prefSaved ? true : null;
+      return dataDecode;
     }
-    return false;
+    return null;
   }
 
   static Future<String> signInWithGoogle() async {
@@ -44,20 +42,5 @@ class Authentication {
         await FirebaseAuth.instance.signInWithCredential(credential);
 
     return googleAuth.accessToken;
-  }
-
-  Future<bool> myPref(dynamic authData) async {
-    if (authData != null) {
-      SharedPreferences pref = await SharedPreferences.getInstance();
-      String token = authData['access_token'];
-      int expires = authData['expires_in'];
-      String refreshToken = authData['refresh_token'];
-
-      pref.setString('myToken', token);
-      pref.setInt('expires', expires);
-      pref.setString('refreshToken', refreshToken);
-      return true;
-    }
-    return false;
   }
 }

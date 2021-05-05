@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:subscription_app/services/app_state.dart';
 import 'package:subscription_app/widgets/textFormFieldCustom.dart';
 import 'package:subscription_app/widgets/socialButtonCustom.dart';
 import 'package:subscription_app/widgets/elevatedButtonCutom.dart';
@@ -22,49 +24,14 @@ class _LoginWidgetState extends State<LoginWidget> {
     String email = emailLoginController.text;
     String password = passwordLoginController.text;
     if (formKey.currentState.validate()) {
-      dynamic params = {
-        'username': email,
-        'password': password,
-        'client_secret': kClientSecret,
-        'client_id': kClientId,
-        'grant_type': kGrantTypePassword,
-      };
-      final auth = Authentication();
-      bool _isLoginOk = await auth.login(params);
-      if (!_isLoginOk) {
-        await _showMyDialog();
-        return;
-      }
-      bool _isNotificationOk = await doNotification();
-      if (_isLoginOk && _isNotificationOk) {
-        Navigator.pushReplacementNamed(context, HomeScreen.id);
-      }
+      Provider.of<AppState>(context, listen: false).login(email, password);
+      //await _showMyDialog();
     }
   }
 
   void doLoginWithGoogle() async {
     String googleToken = await Authentication.signInWithGoogle();
-
-    dynamic params = {
-      'client_id': kClientId,
-      'client_secret': kClientSecret,
-      'provider': kProviderGoogle,
-      'grant_type': kGrantTypeSocial,
-      'access_token': googleToken
-    };
-    final auth = Authentication();
-    bool _isLoginOk = await auth.login(params);
-    bool _isNotificationOk = await doNotification();
-    if (_isLoginOk && _isNotificationOk) {
-      Navigator.pushReplacementNamed(context, HomeScreen.id);
-    }
-  }
-
-  Future<bool> doNotification() async {
-    Notifications notify = Notifications();
-    String tokenFire = await notify.getTokenFire();
-    bool data = await notify.chanelNotification(tokenFire: tokenFire);
-    return data;
+    Provider.of<AppState>(context, listen: false).googleLogin(googleToken);
   }
 
   Future<void> _showMyDialog() async {
@@ -145,7 +112,7 @@ class _LoginWidgetState extends State<LoginWidget> {
           SizedBox(
             height: 15,
           ),
-          loginButtons
+          loginButtons,
         ],
       ),
     );
