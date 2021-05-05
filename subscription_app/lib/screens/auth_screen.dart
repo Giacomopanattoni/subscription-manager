@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:subscription_app/widgets/loginWidget.dart';
-import 'package:subscription_app/widgets/registerWidget.dart';
+import 'package:subscription_app/widgets/login_widget.dart';
+import 'package:subscription_app/widgets/register_widget.dart';
 import 'package:subscription_app/constants/style.dart';
 
 
