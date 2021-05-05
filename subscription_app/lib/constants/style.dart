@@ -5,6 +5,9 @@ const kTextColorDark = Colors.black;
 const kColorPrimary = Colors.purple;
 const kColorError = Colors.red;
 
+const kMainBackground = Color(0xFFEFEFEF);
+const kSecondaryColor = Color(0xFF9B23EA);
+
 kTextFieldDecoration({IconData prefixIcon, String hintText}) {
   return InputDecoration(
     hintText: hintText,

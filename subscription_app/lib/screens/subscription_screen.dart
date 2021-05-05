@@ -9,8 +9,11 @@ class _SubscriptionScreenState extends State<SubscriptionScreen> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: Center(
-        child: Text('list'),
+      decoration: BoxDecoration(
+        image: DecorationImage(
+          image: AssetImage('images/background-home.jpg'),
+          fit: BoxFit.cover,
+        ),
       ),
     );
   }

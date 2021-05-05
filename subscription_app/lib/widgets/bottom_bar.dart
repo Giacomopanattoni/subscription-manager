@@ -2,6 +2,11 @@ import 'package:custom_navigation_bar/custom_navigation_bar.dart';
 import 'package:flutter/material.dart';
 
 class BottomBar extends StatelessWidget {
+  BottomBar({this.currentIndex, this.onChange});
+
+  final currentIndex;
+  final Function onChange;
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -15,6 +20,10 @@ class BottomBar extends StatelessWidget {
         borderRadius: Radius.circular(20.0),
         isFloating: true,
         elevation: 8.0,
+        currentIndex: currentIndex,
+        onTap: (index) {
+          onChange(index);
+        },
         items: [
           CustomNavigationBarItem(
             icon: Icon(Icons.home),

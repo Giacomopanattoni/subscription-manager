@@ -1,5 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:subscription_app/constants/style.dart';
+import 'package:subscription_app/screens/add_subscription_screen.dart';
+import 'package:subscription_app/screens/settings_screen.dart';
+import 'package:subscription_app/screens/subscription_screen.dart';
 import 'package:subscription_app/widgets/bottom_bar.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -10,31 +14,43 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  /* List<Widget> _buildScreens() {
-    return [SubscriptionScreen(), AddSubscriptionScreen(), SettingsScreen()];
-  } */
+  List<Widget> pages = [
+    SubscriptionScreen(),
+    SettingsScreen(),
+  ];
+
+  int currentPage = 0;
+
+  void changePage(index) {
+    setState(() {
+      if (index == pages.length) {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => AddSubscriptionScreen()),
+        );
+      } else {
+        currentPage = index;
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFFEFEFEF),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {},
-        backgroundColor: Color(0xFF9B23EA),
-        tooltip: 'Increment',
-        child: Icon(Icons.add),
-        elevation: 2.0,
-      ),
-      bottomNavigationBar: BottomBar(),
-      body: Container(
-        decoration: BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage('images/background-home.jpg'),
-            fit: BoxFit.cover,
-          ),
+        backgroundColor: kMainBackground,
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            changePage(pages.length);
+          },
+          backgroundColor: kSecondaryColor,
+          child: Icon(Icons.add),
+          elevation: 2.0,
         ),
-      ),
-    );
+        bottomNavigationBar: BottomBar(
+          currentIndex: currentPage,
+          onChange: changePage,
+        ),
+        body: pages[currentPage]);
   }
 }
