@@ -10,9 +10,9 @@ class AppState extends ChangeNotifier {
   SharedPreferences pref;
   String token;
   String refreshToken;
+  bool loading;
 
   AppState() {
-    print('LOADING...');
     loadData();
   }
 
@@ -30,13 +30,8 @@ class AppState extends ChangeNotifier {
     dynamic tokenSplit = token.split(".");
     dynamic payload = json
         .decode(ascii.decode(base64.decode(base64.normalize(tokenSplit[1]))));
-    if (DateTime.fromMillisecondsSinceEpoch(payload["exp"].toInt() * 1000)
-        .isAfter(DateTime.now())) {
-      return true;
-    } else {
-      refresh();
-      print('refreshed');
-    }
+    if (!DateTime.fromMillisecondsSinceEpoch(payload["exp"].toInt() * 1000)
+        .isAfter(DateTime.now())) refresh();
   }
 
   Future<bool> login(String email, String password) async {

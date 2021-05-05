@@ -11,20 +11,22 @@ class _SettingsScreenState extends State<SettingsScreen> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: Column(children: [
-        TextButton(
-          child: Text('logout'),
-          onPressed: () {
-            Provider.of<AppState>(context, listen: false).logout();
-          },
-        ),
-        TextButton(
-          child: Text('checkToken'),
-          onPressed: () {
-            Provider.of<AppState>(context, listen: false).checkToken();
-          },
-        ),
-      ]),
+      child: Center(
+        child: Row(children: [
+          TextButton(
+            child: Text('logout'),
+            onPressed: () {
+              Provider.of<AppState>(context, listen: false).logout();
+            },
+          ),
+          TextButton(
+            child: Text('checkToken'),
+            onPressed: () {
+              Provider.of<AppState>(context, listen: false).checkToken();
+            },
+          ),
+        ]),
+      ),
     );
   }
 }
