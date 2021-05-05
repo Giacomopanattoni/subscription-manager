@@ -24,14 +24,17 @@ class _LoginWidgetState extends State<LoginWidget> {
     String email = emailLoginController.text;
     String password = passwordLoginController.text;
     if (formKey.currentState.validate()) {
-      Provider.of<AppState>(context, listen: false).login(email, password);
-      //await _showMyDialog();
+      bool logged = await Provider.of<AppState>(context, listen: false)
+          .login(email, password);
+      if (!logged) await _showMyDialog();
     }
   }
 
   void doLoginWithGoogle() async {
     String googleToken = await Authentication.signInWithGoogle();
-    Provider.of<AppState>(context, listen: false).googleLogin(googleToken);
+    bool logged = await Provider.of<AppState>(context, listen: false)
+        .googleLogin(googleToken);
+    if (!logged) await _showMyDialog();
   }
 
   Future<void> _showMyDialog() async {

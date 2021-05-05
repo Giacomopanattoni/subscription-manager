@@ -5,8 +5,6 @@ import 'package:subscription_app/services/authentication.dart';
 import 'package:subscription_app/services/notifications.dart';
 
 class AppState extends ChangeNotifier {
-  //notifyListeners();
-
   SharedPreferences pref;
   String token;
   String refreshToken;
@@ -29,7 +27,7 @@ class AppState extends ChangeNotifier {
 
   Future<bool> checkToken() async {}
 
-  Future<void> login(String email, String password) async {
+  Future<bool> login(String email, String password) async {
     dynamic params = {
       'username': email,
       'password': password,
@@ -39,11 +37,16 @@ class AppState extends ChangeNotifier {
     };
     final auth = Authentication();
     dynamic userData = await auth.login(params);
-    await storeUserData(userData);
-    await sendDeviceToken();
+    if (userData != null) {
+      await storeUserData(userData);
+      await sendDeviceToken();
+      return true;
+    } else {
+      return false;
+    }
   }
 
-  Future<void> googleLogin(googleToken) async {
+  Future<bool> googleLogin(googleToken) async {
     dynamic params = {
       'client_id': kClientId,
       'client_secret': kClientSecret,
@@ -53,8 +56,13 @@ class AppState extends ChangeNotifier {
     };
     final auth = Authentication();
     dynamic userData = await auth.login(params);
-    await storeUserData(userData);
-    await sendDeviceToken();
+    if (userData != null) {
+      await storeUserData(userData);
+      await sendDeviceToken();
+      return true;
+    } else {
+      return false;
+    }
   }
 
   Future<void> storeUserData(userData) async {
