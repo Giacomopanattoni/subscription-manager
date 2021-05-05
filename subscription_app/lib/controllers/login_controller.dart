@@ -6,8 +6,10 @@ import 'package:subscription_app/services/authentication.dart';
 
 class LoginController {
   void doLogin(context, email, password) async {
+    showLoaderDialog(context);
     bool logged = await Provider.of<AppState>(context, listen: false)
         .login(email, password);
+    Navigator.pop(context);
     if (!logged) await showMyDialog(context);
   }
 
