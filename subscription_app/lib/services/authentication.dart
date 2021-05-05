@@ -11,21 +11,16 @@ class Authentication {
 
 //TODO ADD ERROR HANDLING
   Future<bool> register(dynamic params) async {
-    String myPath = '/api/auth/register';
-    dynamic data = await api.post(path: myPath, body: params);
+    dynamic data = await api.post(path: '/api/auth/register', body: params);
     if (data != null) {
-      print(data);
       return true;
     }
     return false;
   }
 
   Future<bool> login(dynamic params) async {
-    String myPath = '/api/auth/token';
-    dynamic data = await api.post(path: myPath, body: params);
+    dynamic data = await api.post(path: '/api/auth/token', body: params);
     if (data != null) {
-      print('LOGIN DATA');
-      print(data);
       dynamic dataDecode = jsonDecode(data);
       bool prefSaved = await myPref(dataDecode);
       return prefSaved ? true : null;
@@ -57,8 +52,6 @@ class Authentication {
       String token = authData['access_token'];
       int expires = authData['expires_in'];
       String refreshToken = authData['refresh_token'];
-      print('MYPREF');
-      print(refreshToken);
 
       pref.setString('myToken', token);
       pref.setInt('expires', expires);

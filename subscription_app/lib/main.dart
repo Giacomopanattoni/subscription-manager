@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:subscription_app/services/appSettings.dart';
+import 'package:subscription_app/widgets/spinner.dart';
 import 'screens/auth_screen.dart';
 import 'screens/home_screen.dart';
 import 'package:provider/provider.dart';
@@ -55,7 +56,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider<AppSettings>(create: (context) => AppSettings()),
       ],
       child: MaterialApp(
-        title: 'Flutter Demo',
+        title: 'Advanced Sub Manager',
         initialRoute: '/',
         routes: {
           AuthScreen.id: (context) => AuthScreen(),
@@ -65,7 +66,7 @@ class MyApp extends StatelessWidget {
         home: FutureBuilder(
           future: isTokenValid,
           builder: (context, snapshot) {
-            if (!snapshot.hasData) return LinearProgressIndicator();
+            if (!snapshot.hasData) return Spinner();
             if (snapshot.data) {
               return HomeScreen();
             } else {
