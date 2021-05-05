@@ -5,11 +5,7 @@ import 'package:subscription_app/services/app_state.dart';
 import 'package:subscription_app/widgets/textFormFieldCustom.dart';
 import 'package:subscription_app/widgets/socialButtonCustom.dart';
 import 'package:subscription_app/widgets/elevatedButtonCutom.dart';
-import 'package:subscription_app/services/authentication.dart';
-import 'package:subscription_app/screens/home_screen.dart';
 import 'package:subscription_app/constants/auth.dart';
-import 'package:subscription_app/services/notifications.dart';
-import 'package:subscription_app/constants/style.dart';
 
 class LoginWidget extends StatefulWidget {
   @override
@@ -20,19 +16,6 @@ class _LoginWidgetState extends State<LoginWidget> {
   final formKey = GlobalKey<FormState>();
   final emailLoginController = TextEditingController();
   final passwordLoginController = TextEditingController();
-
-  void doLogin() async {
-    String email = emailLoginController.text;
-    String password = passwordLoginController.text;
-    if (formKey.currentState.validate()) {
-      bool logged = await Provider.of<AppState>(context, listen: false)
-          .login(email, password);
-      if (!logged) {
-        LoginController loginController = LoginController();
-        loginController.showMyDialog(context);
-      }
-    }
-  }
 
   @override
   void dispose() {
