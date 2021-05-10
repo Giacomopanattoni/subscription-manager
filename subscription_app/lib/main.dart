@@ -28,6 +28,7 @@ class MyApp extends StatelessWidget {
               accentColor: Colors.deepOrange,
               fontFamily: 'Lato',
             ),
+            debugShowCheckedModeBanner: false,
             home: state.token != null ? HomeScreen() : AuthScreen(),
             routes: <String, WidgetBuilder>{
               AuthScreen.id: (context) => AuthScreen(),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:subscription_app/controllers/login_controller.dart';
 import 'package:subscription_app/widgets/textFormFieldCustom.dart';
 import 'package:subscription_app/services/authentication.dart';
 import 'package:subscription_app/widgets/socialButtonCustom.dart';
@@ -103,7 +104,8 @@ class _RegisterWidgetState extends State<RegisterWidget> {
             textButton: 'REGISTER WITH GOOGLE',
             svgIconPath: 'images/googleicon.svg',
             onPress: () {
-              doLoginWithGoogle();
+              LoginController loginController = LoginController();
+              loginController.doLoginWithGoogle(context);
             }),
         SizedBox(
           height: 10,
