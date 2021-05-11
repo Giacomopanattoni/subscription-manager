@@ -6,13 +6,13 @@ import 'package:subscription_app/constants/auth.dart';
 import 'package:subscription_app/services/authentication.dart';
 import 'package:subscription_app/services/notifications.dart';
 
-class AppState extends ChangeNotifier {
+class AppSession extends ChangeNotifier {
   SharedPreferences pref;
   String token;
   String refreshToken;
   bool loading;
 
-  AppState() {
+  AppSession() {
     loadData();
   }
 

@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:subscription_app/services/api.dart';
 import 'package:subscription_app/models/subscription_model.dart';
 import 'dart:convert';
@@ -16,11 +18,10 @@ class Subscriptions {
     String myPath = '/api/user-subscriptions';
     dynamic data = await api.get(path: myPath);
     if (data != null) {
-      print(data);
       dynamic items = jsonDecode(data);
+      print(items['data']);
       List subscriptions = List<Subscription>.from(
           items['data'].map((model) => Subscription.fromJson(model)));
-
       return subscriptions;
     }
     return null;

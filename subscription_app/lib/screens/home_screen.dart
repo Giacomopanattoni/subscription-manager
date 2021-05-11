@@ -1,9 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:subscription_app/constants/style.dart';
 import 'package:subscription_app/screens/add_subscription_screen.dart';
 import 'package:subscription_app/screens/settings_screen.dart';
 import 'package:subscription_app/screens/subscription_screen.dart';
+import 'package:subscription_app/services/app_data.dart';
 import 'package:subscription_app/widgets/bottom_bar.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -36,21 +38,27 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        backgroundColor: kMainBackground,
-        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-        floatingActionButton: FloatingActionButton(
-          onPressed: () {
-            changePage(pages.length);
-          },
-          backgroundColor: kSecondaryColor,
-          child: Icon(Icons.add),
-          elevation: 2.0,
-        ),
-        bottomNavigationBar: BottomBar(
-          currentIndex: currentPage,
-          onChange: changePage,
-        ),
-        body: pages[currentPage]);
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider<AppData>(create: (context) => AppData()),
+      ],
+      child: Scaffold(
+          backgroundColor: kMainBackground,
+          floatingActionButtonLocation:
+              FloatingActionButtonLocation.centerDocked,
+          floatingActionButton: FloatingActionButton(
+            onPressed: () {
+              changePage(pages.length);
+            },
+            backgroundColor: kSecondaryColor,
+            child: Icon(Icons.add),
+            elevation: 2.0,
+          ),
+          bottomNavigationBar: BottomBar(
+            currentIndex: currentPage,
+            onChange: changePage,
+          ),
+          body: pages[currentPage]),
+    );
   }
 }

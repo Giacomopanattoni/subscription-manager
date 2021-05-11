@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:subscription_app/services/app_state.dart';
+import 'package:subscription_app/services/app_session.dart';
 
 class SettingsScreen extends StatefulWidget {
   @override
@@ -16,13 +16,13 @@ class _SettingsScreenState extends State<SettingsScreen> {
           TextButton(
             child: Text('logout'),
             onPressed: () {
-              Provider.of<AppState>(context, listen: false).logout();
+              Provider.of<AppSession>(context, listen: false).logout();
             },
           ),
           TextButton(
             child: Text('checkToken'),
             onPressed: () {
-              Provider.of<AppState>(context, listen: false).checkToken();
+              Provider.of<AppSession>(context, listen: false).checkToken();
             },
           ),
         ]),

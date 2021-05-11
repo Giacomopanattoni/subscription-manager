@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:subscription_app/constants/style.dart';
-import 'package:subscription_app/services/app_state.dart';
+import 'package:subscription_app/services/app_session.dart';
 import 'package:subscription_app/services/authentication.dart';
 
 class LoginController {
   void doLogin(context, email, password) async {
     showLoaderDialog(context);
-    bool logged = await Provider.of<AppState>(context, listen: false)
+    bool logged = await Provider.of<AppSession>(context, listen: false)
         .login(email, password);
     Navigator.pop(context);
     if (!logged) await showMyDialog(context);
@@ -16,7 +16,7 @@ class LoginController {
   void doLoginWithGoogle(context) async {
     String googleToken = await Authentication.signInWithGoogle();
     showLoaderDialog(context);
-    bool logged = await Provider.of<AppState>(context, listen: false)
+    bool logged = await Provider.of<AppSession>(context, listen: false)
         .googleLogin(googleToken);
     Navigator.pop(context);
     if (!logged) await showMyDialog(context);

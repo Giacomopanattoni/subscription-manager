@@ -1,32 +1,62 @@
-import 'data_model.dart';
-
 class Subscription {
-  String _status;
-  Data _data;
+  int id;
+  int userId;
+  String name;
+  int price;
+  int renewalDay;
+  int everyCount;
+  String everyItem;
+  String from;
+  int notify;
+  DateTime nextRenewal;
+  String createdAt;
+  String updatedAt;
 
-  String get status => _status;
-  Data get data => _data;
-
-  set data(Data newData) {
-    this._data = newData;
-  }
-
-  Subscription({String status, Data data}) {
-    _status = status;
-    _data = data;
+  Subscription(
+      {int id,
+      int userId,
+      String name,
+      int price,
+      int renewalDay,
+      int everyCount,
+      String everyItem,
+      String from,
+      int notify,
+      String nextRenewal,
+      String createdAt,
+      String updatedAt}) {
+    this.nextRenewal = DateTime.parse(nextRenewal);
   }
 
   Subscription.fromJson(dynamic json) {
-    _status = json["status"];
-    _data = json["data"] != null ? Data.fromJson(json["data"]) : null;
+    id = json["id"];
+    userId = json["user_id"];
+    name = json["name"];
+    price = json["price"];
+    renewalDay = json["renewal_day"];
+    everyCount = json["every_count"];
+    everyItem = json["every_item"];
+    from = json["from"];
+    notify = json["notify"];
+    nextRenewal = DateTime.parse(json["next_renewal"]);
+    createdAt = json["created_at"];
+    updatedAt = json["updated_at"];
   }
 
   Map<String, dynamic> toJson() {
     var map = <String, dynamic>{};
-    map["status"] = _status;
-    if (_data != null) {
-      map["data"] = _data.toJson();
-    }
+    map["id"] = id;
+    map["user_id"] = userId;
+    map["name"] = name;
+    map["price"] = price;
+    map["renewal_day"] = renewalDay;
+    map["every_count"] = everyCount;
+    map["every_item"] = everyItem;
+    map["from"] = from;
+    map["notify"] = notify;
+    map["next_renewal"] = nextRenewal;
+    map["created_at"] = createdAt;
+    map["updated_at"] = updatedAt;
     return map;
   }
 }

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:subscription_app/services/appSettings.dart';
-import 'package:subscription_app/services/app_state.dart';
+import 'package:subscription_app/services/app_session.dart';
 import 'package:subscription_app/widgets/spinner.dart';
 import 'screens/auth_screen.dart';
 import 'screens/home_screen.dart';
@@ -17,9 +17,9 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider<AppSettings>(create: (context) => AppSettings()),
-        ChangeNotifierProvider<AppState>(create: (context) => AppState()),
+        ChangeNotifierProvider<AppSession>(create: (context) => AppSession()),
       ],
-      child: Consumer<AppState>(
+      child: Consumer<AppSession>(
         builder: (context, state, _) {
           return MaterialApp(
             title: 'Translation App',

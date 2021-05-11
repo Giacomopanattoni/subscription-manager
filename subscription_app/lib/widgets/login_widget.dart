@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:subscription_app/controllers/login_controller.dart';
-import 'package:subscription_app/services/app_state.dart';
 import 'package:subscription_app/widgets/textFormFieldCustom.dart';
 import 'package:subscription_app/widgets/socialButtonCustom.dart';
 import 'package:subscription_app/widgets/elevatedButtonCutom.dart';
