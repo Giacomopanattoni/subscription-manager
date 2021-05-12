@@ -43,9 +43,9 @@ class UserSubscriptionCrudController extends CrudController
         CRUD::column('user_id');
         CRUD::column('name');
         CRUD::column('price');
-        CRUD::column('every_count');
-        CRUD::column('every_item');
         CRUD::column('notify');
+        CRUD::column('color');
+        CRUD::column('category');
         CRUD::column('next_renewal');
 
         /**
@@ -92,6 +92,7 @@ class UserSubscriptionCrudController extends CrudController
             'type'  => 'color'
         ]);
         CRUD::field('category_id');
+        CRUD::field('image');
 
         /**
          * Fields can be defined using the fluent syntax or array syntax:

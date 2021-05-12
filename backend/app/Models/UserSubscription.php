@@ -21,7 +21,10 @@ class UserSubscription extends Model
         'every_count',
         'every_item',
         'from',
-        'notify'
+        'notify',
+        'color',
+        'category_id',
+        'image'
     ];
 
     public function user(){
