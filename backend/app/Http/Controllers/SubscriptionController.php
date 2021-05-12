@@ -29,7 +29,7 @@ class SubscriptionController extends Controller
             'from' => 'required|date',
             'notify' => 'required|bool',
             'color' => 'required|string',
-            'category_id' => 'exist:categories,id',
+            'category_id' => 'nullable|exist:categories,id',
             'image' => 'string',
         ]);
         $subscription = new UserSubscription();
@@ -91,7 +91,7 @@ class SubscriptionController extends Controller
             'from' => 'required|date',
             'notify' => 'required|bool',
             'color' => 'required|string',
-            'category_id' => 'numeric',
+            'category_id' => 'nullable|exist:categories,id',
             'image' => 'string',
         ]);
 
