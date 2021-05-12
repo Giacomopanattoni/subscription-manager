@@ -28,13 +28,14 @@ class Api {
     }
   }
 
-  Future<dynamic> post({dynamic body,String path}) async {
+  Future<dynamic> post({dynamic body, String path}) async {
     print(body);
     String token = await prefToken;
     try {
       final response = await http.post(Uri.https(_baseUrl, path),
           headers: <String, String>{
             'Accept': 'application/json',
+            'Content-Type': 'application/json',
             'Authorization': 'Bearer $token'
           },
           body: body);

@@ -91,7 +91,7 @@ class SubscriptionController extends Controller
             'from' => 'required|date',
             'notify' => 'required|bool',
             'color' => 'required|string',
-            'category_id' => 'exist:categories,id',
+            'category_id' => 'numeric',
             'image' => 'string',
         ]);
 
