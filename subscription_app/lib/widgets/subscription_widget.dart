@@ -54,12 +54,19 @@ class _SubscriptionWidgetState extends State<SubscriptionWidget> {
                     .withOpacity(1.0),
               ),
               child: Padding(
-                padding: const EdgeInsets.all(8.0),
+                padding: const EdgeInsets.only(left: 15, right: 10),
                 child: Flex(
                   direction: Axis.horizontal,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    SvgPicture.asset('images/amazon.svg'),
+                    Text(
+                      widget.subscription.name[0],
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 30,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
                     Flex(
                       direction: Axis.horizontal,
                       children: [

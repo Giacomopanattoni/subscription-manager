@@ -22,7 +22,7 @@ class UserSubscriptionCrudController extends CrudController
 
     /**
      * Configure the CrudPanel object. Apply settings to all operations.
-     * 
+     *
      * @return void
      */
     public function setup()
@@ -34,7 +34,7 @@ class UserSubscriptionCrudController extends CrudController
 
     /**
      * Define what happens when the List operation is loaded.
-     * 
+     *
      * @see  https://backpackforlaravel.com/docs/crud-operation-list-entries
      * @return void
      */
@@ -51,13 +51,13 @@ class UserSubscriptionCrudController extends CrudController
         /**
          * Columns can be defined using the fluent syntax or array syntax:
          * - CRUD::column('price')->type('number');
-         * - CRUD::addColumn(['name' => 'price', 'type' => 'number']); 
+         * - CRUD::addColumn(['name' => 'price', 'type' => 'number']);
          */
     }
 
     /**
      * Define what happens when the Create operation is loaded.
-     * 
+     *
      * @see https://backpackforlaravel.com/docs/crud-operation-create
      * @return void
      */
@@ -71,10 +71,10 @@ class UserSubscriptionCrudController extends CrudController
         CRUD::field('renewal_day');
         CRUD::field('every_count');
         CRUD::addField([
-            'name'        => 'every_item', 
-            'label'       => 'recurring', 
+            'name'        => 'every_item',
+            'label'       => 'recurring',
             'type'        => 'radio',
-            'options'     => [ 
+            'options'     => [
                 'week' => "Week",
                 'month' => "Month",
                 'year' => "Year"
@@ -86,17 +86,23 @@ class UserSubscriptionCrudController extends CrudController
             'type'  => 'date'
         ]);
         CRUD::field('notify');
+        CRUD::addField([
+            'name'  => 'color',
+            'label' => 'Color',
+            'type'  => 'color'
+        ]);
+        CRUD::field('category_id');
 
         /**
          * Fields can be defined using the fluent syntax or array syntax:
          * - CRUD::field('price')->type('number');
-         * - CRUD::addField(['name' => 'price', 'type' => 'number'])); 
+         * - CRUD::addField(['name' => 'price', 'type' => 'number']));
          */
     }
 
     /**
      * Define what happens when the Update operation is loaded.
-     * 
+     *
      * @see https://backpackforlaravel.com/docs/crud-operation-update
      * @return void
      */
@@ -106,11 +112,11 @@ class UserSubscriptionCrudController extends CrudController
     }
 
     protected function setupShowOperation(){
-        $this->crud->addColumn([  
+        $this->crud->addColumn([
             'name'         => 'invitedUsers', // name of relationship method in the model
             'type'         => 'relationship',
             'label'        => 'Invitations', // Table column heading
-             'attribute' => 'id', // foreign key attribute that is shown to user
+            'attribute' => 'id', // foreign key attribute that is shown to user
          ],);
     }
 

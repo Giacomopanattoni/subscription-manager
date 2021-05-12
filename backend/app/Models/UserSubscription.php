@@ -40,4 +40,8 @@ class UserSubscription extends Model
     public function invitedUsers(){
         return $this->hasManyThrough(User::class, UserInvitation::class,'user_subscription_id','id','id','invited_user_id');
     }
+
+    public function category(){
+        return $this->belongsTo(Category::class);
+    }
 }

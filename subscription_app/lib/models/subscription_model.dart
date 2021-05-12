@@ -1,3 +1,7 @@
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_svg/svg.dart';
+
 class Subscription {
   int id;
   int userId;
@@ -11,6 +15,7 @@ class Subscription {
   DateTime nextRenewal;
   String createdAt;
   String updatedAt;
+  Widget image;
 
   Subscription(
       {int id,
@@ -26,6 +31,8 @@ class Subscription {
       String createdAt,
       String updatedAt}) {
     this.nextRenewal = DateTime.parse(nextRenewal);
+    this.image = Text('test');
+    getImage();
   }
 
   Subscription.fromJson(dynamic json) {
@@ -58,5 +65,14 @@ class Subscription {
     map["created_at"] = createdAt;
     map["updated_at"] = updatedAt;
     return map;
+  }
+
+  Widget getImage() {
+    try {
+      SvgPicture image = SvgPicture.asset('images/amazons.svg');
+      this.image = image;
+    } catch (e) {
+      this.image = Text('test');
+    }
   }
 }

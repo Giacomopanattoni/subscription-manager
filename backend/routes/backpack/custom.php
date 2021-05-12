@@ -20,4 +20,5 @@ Route::group([
     Route::get('charts/monthly-users', 'Charts\MonthlyUsersChartController@response')->name('charts.monthly-users.index');
     Route::crud('notification', 'NotificationCrudController');
     Route::crud('device', 'DeviceCrudController');
+    Route::crud('category', 'CategoryCrudController');
 }); // this should be the absolute last line of this file

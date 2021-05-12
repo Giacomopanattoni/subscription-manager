@@ -26,6 +26,8 @@ class SubscriptionController extends Controller
             'every_item' => 'required|string|in:week,month,year',
             'from' => 'required|date',
             'notify' => 'required|bool',
+            'color' => 'required|string',
+            'category_id' => 'exist:categories,id'
         ]);
         $subscription = new UserSubscription();
         $subscription->name = $request->post('name');
@@ -36,6 +38,9 @@ class SubscriptionController extends Controller
         $subscription->every_item = $request->post('every_item');
         $subscription->from = $request->post('from');
         $subscription->notify = $request->post('notify');
+        $subscription->color = $request->post('color');
+        $subscription->category_id = $request->post('category_id');
+
         $subscription->save();
         return $this->jsonResponse(true,$subscription);
     }
@@ -77,6 +82,8 @@ class SubscriptionController extends Controller
             'every_item' => 'required|string|in:week,month,year',
             'from' => 'required|date',
             'notify' => 'required|bool',
+            'color' => 'required|string',
+            'category_id' => 'exist:categories,id'
         ]);
 
         $subscription->name = $request->post('name');
@@ -87,6 +94,9 @@ class SubscriptionController extends Controller
         $subscription->every_item = $request->post('every_item');
         $subscription->from = $request->post('from');
         $subscription->notify = $request->post('notify');
+        $subscription->color = $request->post('color');
+        $subscription->category_id = $request->post('category_id');
+
         $subscription->save();
         return $this->jsonResponse(true,$subscription);
     }
@@ -186,5 +196,5 @@ class SubscriptionController extends Controller
         return null;
     }
 
-    
+
 }
