@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 
 class Subscription {
@@ -11,7 +10,7 @@ class Subscription {
   int everyCount;
   String everyItem;
   String from;
-  int notify;
+  bool notify;
   String color;
   int categoryId;
   String image;
@@ -28,7 +27,7 @@ class Subscription {
       int everyCount,
       String everyItem,
       String from,
-      int notify,
+      bool notify,
       String color,
       int categoryId,
       String nextRenewal,
@@ -44,7 +43,7 @@ class Subscription {
     everyCount = json["every_count"];
     everyItem = json["every_item"];
     from = json["from"];
-    notify = json["notify"];
+    notify = json["notify"] == 1;
     color = json["color"];
     categoryId = json["category_id"];
     image = json["image"];
@@ -53,25 +52,23 @@ class Subscription {
     updatedAt = json["updated_at"];
   }
 
-  Map<String, dynamic> toJson() {
-    var map = <String, dynamic>{};
-    map["id"] = id;
-    map["user_id"] = userId;
-    map["name"] = name;
-    map["price"] = price;
-    map["renewal_day"] = renewalDay;
-    map["every_count"] = everyCount;
-    map["every_item"] = everyItem;
-    map["from"] = from;
-    map["notify"] = notify;
-    map["color"] = color;
-    map["category_id"] = categoryId;
-    map["image"] = image;
-    map["next_renewal"] = nextRenewal;
-    map["created_at"] = createdAt;
-    map["updated_at"] = updatedAt;
-    return map;
-  }
+  Map<String, dynamic> toJson() => {
+        "id": id,
+        "user_id": userId,
+        "name": name,
+        "price": price,
+        "renewal_day": renewalDay,
+        "every_count": everyCount,
+        "every_item": everyItem,
+        "from": from,
+        "notify": notify,
+        "color": color,
+        "category_id": categoryId,
+        "image": image,
+        "created_at": createdAt,
+        "updated_at": updatedAt,
+        "next_renewal": nextRenewal.toString().split(' ')[0]
+      };
 
   Widget getImage() {
     if (image != null) {

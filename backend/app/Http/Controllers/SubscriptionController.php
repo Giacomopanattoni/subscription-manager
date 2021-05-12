@@ -7,6 +7,7 @@ use App\Models\UserSubscription;
 use App\Models\UserInvitation;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 
 class SubscriptionController extends Controller
 {
@@ -74,7 +75,7 @@ class SubscriptionController extends Controller
 
     public function edit(UserSubscription $subscription, Request $request)
     {
-
+        Log::debug($request->post());
         $userPermission = $this->getUserPermissions($request->user(), $subscription);
         if ($userPermission != $this->roles[0]) {
             return $this->jsonResponse(false, [

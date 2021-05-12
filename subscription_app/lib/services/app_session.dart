@@ -73,10 +73,8 @@ class AppSession extends ChangeNotifier {
   }
 
   Future<void> storeUserData(userData) async {
-    print('STORING DATA...');
     token = userData['access_token'];
     refreshToken = userData['refresh_token'];
-    print(token);
 
     pref.setString('myToken', token);
     pref.setString('refreshToken', refreshToken);

@@ -1,15 +1,13 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+import 'package:provider/provider.dart';
 import 'dart:ui';
-
 import 'package:subscription_app/models/subscription_model.dart';
+import 'package:subscription_app/services/app_data.dart';
 
 class SubscriptionWidget extends StatefulWidget {
   @override
   SubscriptionWidget({this.subscription});
-  Subscription subscription;
+  final Subscription subscription;
   _SubscriptionWidgetState createState() => _SubscriptionWidgetState();
 }
 
@@ -17,16 +15,6 @@ class _SubscriptionWidgetState extends State<SubscriptionWidget> {
   Color colorBel = Colors.black;
   IconData iconBel = Icons.notifications_none;
   bool stateBel = false;
-
-  void notification(bool isActive) {
-    stateBel = !isActive;
-    setState(() {
-      colorBel = stateBel ? Colors.amber[700] : Colors.black;
-      iconBel =
-          stateBel ? Icons.notifications_active : Icons.notifications_none;
-      stateBel = stateBel ? true : false;
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -50,8 +38,7 @@ class _SubscriptionWidgetState extends State<SubscriptionWidget> {
             child: Container(
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(15.0),
-                color: Color((Random().nextDouble() * 0xFFFFFF).toInt())
-                    .withOpacity(1.0),
+                color: Color(int.parse(widget.subscription.color)),
               ),
               child: Padding(
                 padding: const EdgeInsets.only(left: 15, right: 10),
@@ -84,12 +71,17 @@ class _SubscriptionWidgetState extends State<SubscriptionWidget> {
                         ),
                         GestureDetector(
                           onTap: () {
-                            notification(stateBel);
+                            Provider.of<AppData>(context, listen: false)
+                                .changeNotify(widget.subscription);
                           },
                           child: Icon(
-                            iconBel,
+                            widget.subscription.notify
+                                ? Icons.notifications_active
+                                : Icons.notifications_none,
                             size: 30,
-                            color: colorBel,
+                            color: widget.subscription.notify
+                                ? Colors.amber[700]
+                                : Colors.black,
                           ),
                         )
                       ],

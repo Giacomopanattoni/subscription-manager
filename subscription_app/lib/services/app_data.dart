@@ -17,4 +17,13 @@ class AppData extends ChangeNotifier {
     subscriptions = await subscriptionService.getSubscription();
     notifyListeners();
   }
+
+  Future<void> changeNotify(Subscription subscription) async {
+    subscription.notify = !subscription.notify;
+    Subscriptions subscriptionService = Subscriptions();
+    var res = await subscriptionService.editSubscription(subscription);
+    print('Status--------------');
+    print(res);
+    loadData();
+  }
 }

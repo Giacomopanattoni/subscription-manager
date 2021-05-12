@@ -10,7 +10,6 @@ class Currencies {
     dynamic data = await api.get(path: myPath);
     if (data != null) {
       dynamic items = jsonDecode(data);
-      print(items);
       List currencies =
           List<Currency>.from(items.map((model) => Currency.fromJson(model)));
       return currencies;

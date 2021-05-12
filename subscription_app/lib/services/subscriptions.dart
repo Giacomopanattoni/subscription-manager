@@ -19,7 +19,6 @@ class Subscriptions {
     dynamic data = await api.get(path: myPath);
     if (data != null) {
       dynamic items = jsonDecode(data);
-      print(items['data']);
       List subscriptions = List<Subscription>.from(
           items['data'].map((model) => Subscription.fromJson(model)));
       return subscriptions;
@@ -27,10 +26,18 @@ class Subscriptions {
     return null;
   }
 
-  Future<bool> editSubscription(dynamic params, String idSub) async {
-    String myPath = '/api/user-subscriptions/$idSub';
-    dynamic response = await api.post(path: myPath);
-    if (response != null) return true;
+  Future<bool> editSubscription(Subscription subscription) async {
+    String subId = subscription.id.toString();
+    print('SUB-----------------');
+    print(subscription);
+    print('SUBJSON-----------------');
+    print(jsonEncode(subscription.toJson()));
+    dynamic data = await api.post(
+        path: '/api/user-subscriptions/$subId',
+        body: jsonEncode(subscription.toJson()));
+    if (data != null) {
+      return true;
+    }
     return false;
   }
 }
