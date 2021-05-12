@@ -59,14 +59,7 @@ class _SubscriptionWidgetState extends State<SubscriptionWidget> {
                   direction: Axis.horizontal,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(
-                      widget.subscription.name[0],
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 30,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
+                    widget.subscription.getImage(),
                     Flex(
                       direction: Axis.horizontal,
                       children: [

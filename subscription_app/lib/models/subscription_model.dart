@@ -12,10 +12,12 @@ class Subscription {
   String everyItem;
   String from;
   int notify;
+  String color;
+  int categoryId;
+  String image;
   DateTime nextRenewal;
   String createdAt;
   String updatedAt;
-  Widget image;
 
   Subscription(
       {int id,
@@ -27,13 +29,11 @@ class Subscription {
       String everyItem,
       String from,
       int notify,
+      String color,
+      int categoryId,
       String nextRenewal,
       String createdAt,
-      String updatedAt}) {
-    this.nextRenewal = DateTime.parse(nextRenewal);
-    this.image = Text('test');
-    getImage();
-  }
+      String updatedAt});
 
   Subscription.fromJson(dynamic json) {
     id = json["id"];
@@ -45,6 +45,9 @@ class Subscription {
     everyItem = json["every_item"];
     from = json["from"];
     notify = json["notify"];
+    color = json["color"];
+    categoryId = json["category_id"];
+    image = json["image"];
     nextRenewal = DateTime.parse(json["next_renewal"]);
     createdAt = json["created_at"];
     updatedAt = json["updated_at"];
@@ -61,6 +64,9 @@ class Subscription {
     map["every_item"] = everyItem;
     map["from"] = from;
     map["notify"] = notify;
+    map["color"] = color;
+    map["category_id"] = categoryId;
+    map["image"] = image;
     map["next_renewal"] = nextRenewal;
     map["created_at"] = createdAt;
     map["updated_at"] = updatedAt;
@@ -68,11 +74,9 @@ class Subscription {
   }
 
   Widget getImage() {
-    try {
-      SvgPicture image = SvgPicture.asset('images/amazons.svg');
-      this.image = image;
-    } catch (e) {
-      this.image = Text('test');
+    if (image != null) {
+      return SvgPicture.asset('images/' + image + '.svg');
     }
+    return Text(name[0]);
   }
 }

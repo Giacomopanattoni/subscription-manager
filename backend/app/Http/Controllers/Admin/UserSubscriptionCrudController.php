@@ -86,11 +86,8 @@ class UserSubscriptionCrudController extends CrudController
             'type'  => 'date'
         ]);
         CRUD::field('notify');
-        CRUD::addField([
-            'name'  => 'color',
-            'label' => 'Color',
-            'type'  => 'color'
-        ]);
+        CRUD::field('color');
+
         CRUD::field('category_id');
         CRUD::field('image');
 
