@@ -16,7 +16,7 @@ class AddColorCategoriesUserSubscriptionsTable extends Migration
         Schema::table('user_subscriptions', function (Blueprint $table) {
             $table->string('color')->default('#bfbfbf')->after('notify');
             $table->string('image')->after('notify')->nullable();
-            $table->foreignId('category_id')->after('notify')->constrained()->nullable();
+            $table->foreignId('category_id')->nullable()->after('notify')->constrained();
         });
     }
 
