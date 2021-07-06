@@ -28,17 +28,25 @@ class Api {
     }
   }
 
-  Future<dynamic> post({dynamic body, String path}) async {
+  Future<dynamic> post({dynamic body, String path, bool isJson = false}) async {
     print(body);
     String token = await prefToken;
+    var headers;
     try {
+      if (isJson) {
+        headers = {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer $token'
+        };
+      } else {
+        headers = {
+          'Accept': 'application/json',
+          'Authorization': 'Bearer $token'
+        };
+      }
       final response = await http.post(Uri.https(_baseUrl, path),
-          headers: <String, String>{
-            'Accept': 'application/json',
-            'Content-Type': 'application/json',
-            'Authorization': 'Bearer $token'
-          },
-          body: body);
+          headers: headers, body: body);
       print(response.body);
       if (response.statusCode == 200) {
         String data = response.body;

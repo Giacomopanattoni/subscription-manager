@@ -23,6 +23,7 @@ class Language {
   static Map<String, String> enStrings = {
     "welcome": "welcome",
     "hello": "hello",
+    "name": "Name"
   };
   static Map<String, String> esStrings = {
     "welcome": "bienvenido",
@@ -31,5 +32,6 @@ class Language {
   static Map<String, String> itStrings = {
     "welcome": "benvenuto",
     "hello": "ciao",
+    "name": "Nome"
   };
 }

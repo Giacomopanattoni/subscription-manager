@@ -28,13 +28,11 @@ class Subscriptions {
 
   Future<bool> editSubscription(Subscription subscription) async {
     String subId = subscription.id.toString();
-    print('SUB-----------------');
-    print(subscription);
-    print('SUBJSON-----------------');
-    print(jsonEncode(subscription.toJson()));
     dynamic data = await api.post(
-        path: '/api/user-subscriptions/$subId',
-        body: jsonEncode(subscription.toJson()));
+      path: '/api/user-subscriptions/$subId',
+      body: jsonEncode(subscription.toJson()),
+      isJson: true,
+    );
     if (data != null) {
       return true;
     }
